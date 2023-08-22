@@ -1,0 +1,20 @@
+[gd_resource type="Theme" load_steps=3 format=3 uid="uid://bwgdrcgopd0s1"]
+
+[ext_resource type="FontFile" uid="uid://e4uw7o5qcr8a" path="res://assets/fonts/Abaddon_Fonts_v1.2/Abaddon Bold.ttf" id="1_fmq3w"]
+[ext_resource type="FontFile" uid="uid://1yawis0rgpqd" path="res://assets/fonts/Abaddon_Fonts_v1.2/Abaddon Light.ttf" id="2_ci5a1"]
+
+[resource]
+default_font = ExtResource("2_ci5a1")
+default_font_size = 6
+BigLabel/base_type = &"Label"
+BigLabel/font_sizes/font_size = 12
+BigLabel/fonts/font = ExtResource("1_fmq3w")
+MarginContainer/constants/margin_bottom = 20
+MarginContainer/constants/margin_left = 20
+MarginContainer/constants/margin_right = 20
+MarginContainer/constants/margin_top = 20
+MarginContainerSmall/base_type = &"MarginContainer"
+MarginContainerSmall/constants/margin_bottom = 10
+MarginContainerSmall/constants/margin_left = 10
+MarginContainerSmall/constants/margin_right = 10
+MarginContainerSmall/constants/margin_top = 10
