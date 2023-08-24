@@ -61,6 +61,10 @@ func is_online() -> bool:
 	return not multiplayer.multiplayer_peer is OfflineMultiplayerPeer and \
 		multiplayer.multiplayer_peer.get_connection_status() != MultiplayerPeer.CONNECTION_DISCONNECTED
 
+
+func sort_players() -> void:
+	players.sort_custom(func (a, b): return a.id < b.id)
+
 func _upnp_setup(server_port):
 	# UPNP queries take some time.
 	var upnp = UPNP.new()

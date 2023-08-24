@@ -8,20 +8,25 @@ var gravity = 400
 
 
 func _physics_process(delta: float) -> void:
+#	Debug.dprint(velocity)
+	
+	if not is_on_floor():
+		velocity.y += gravity * delta
+	
 	if is_multiplayer_authority():
 		var move_input = Input.get_axis("move_left", "move_right")
-		if not is_on_floor():
-			velocity.y += gravity * delta
 		
 		if Input.is_action_just_pressed("jump"):
-			velocity.y = -jump_speed
+			jump.rpc()
+#			jump()
 	
 		velocity.x = move_toward(velocity.x, max_speed * move_input, acceleration * delta)
-		move_and_slide()
-		send_info.rpc(global_position)
+		
+		send_info.rpc(global_position, velocity)
 #	else:
 #		pass
 
+	move_and_slide()
 
 func _input(event: InputEvent) -> void:
 	if is_multiplayer_authority():
@@ -30,8 +35,15 @@ func _input(event: InputEvent) -> void:
 
 
 @rpc("unreliable_ordered")
-func send_info(pos: Vector2) -> void:
-	global_position = pos
+func send_info(pos: Vector2, vel: Vector2) -> void:
+	global_position = lerp(global_position, pos, 0.5)
+	velocity = lerp(velocity, vel, 0.5)
+
+
+@rpc("call_local", "reliable")
+func jump():
+	velocity.y = -jump_speed
+
 
 func setup(player_data: Game.PlayerData):
 	set_multiplayer_authority(player_data.id)

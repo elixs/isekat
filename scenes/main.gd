@@ -6,7 +6,7 @@ extends Node2D
 
 
 func _ready() -> void:
-	Game.players.sort_custom(func (a, b): return a.id < b.id)
+	Game.sort_players()
 	for i in Game.players.size():
 		var player_data = Game.players[i]
 		var player = player_scene.instantiate()
