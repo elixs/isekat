@@ -28,12 +28,6 @@ func _physics_process(delta: float) -> void:
 
 	move_and_slide()
 
-func _input(event: InputEvent) -> void:
-	if is_multiplayer_authority():
-		if event.is_action_pressed("test"):
-			test.rpc_id(1)
-
-
 @rpc("unreliable_ordered")
 func send_info(pos: Vector2, vel: Vector2) -> void:
 	global_position = lerp(global_position, pos, 0.5)

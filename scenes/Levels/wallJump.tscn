@@ -1,11 +1,11 @@
-[gd_scene load_steps=5 format=3 uid="uid://p2yoya1reocx"]
+[gd_scene load_steps=5 format=3 uid="uid://dfs8o7km7eju8"]
 
 [ext_resource type="Script" path="res://scenes/Levels/main.gd" id="1_qbk2l"]
 [ext_resource type="PackedScene" uid="uid://cs5eeqyvay4np" path="res://scenes/Players/runner_player.tscn" id="2_ejuyt"]
 [ext_resource type="PackedScene" uid="uid://ccoblws6jcegc" path="res://scenes/Players/chaser_player.tscn" id="3_5i7wx"]
 [ext_resource type="PackedScene" uid="uid://duc5yompaf61l" path="res://scenes/Obstacles/box.tscn" id="4_t53ik"]
 
-[node name="Main" type="Node2D"]
+[node name="walljump" type="Node2D"]
 script = ExtResource("1_qbk2l")
 player_a_scene = ExtResource("2_ejuyt")
 player_b_scene = ExtResource("3_5i7wx")
@@ -13,11 +13,11 @@ player_b_scene = ExtResource("3_5i7wx")
 [node name="Players" type="Node2D" parent="."]
 
 [node name="Wall" parent="." instance=ExtResource("4_t53ik")]
-position = Vector2(-526, 21)
+position = Vector2(4, 20)
 scale = Vector2(0.181326, 2.16266)
 
 [node name="Box" parent="." instance=ExtResource("4_t53ik")]
-position = Vector2(158, 166)
+position = Vector2(158, 138)
 scale = Vector2(10.996, 0.171859)
 
 [node name="Spawn" type="Node2D" parent="."]
@@ -27,3 +27,7 @@ position = Vector2(39, 89)
 
 [node name="Marker2D2" type="Marker2D" parent="Spawn"]
 position = Vector2(210, 95)
+
+[node name="Wall3" parent="." instance=ExtResource("4_t53ik")]
+position = Vector2(248, 26)
+scale = Vector2(0.181326, 2.16266)
