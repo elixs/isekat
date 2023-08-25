@@ -19,8 +19,6 @@ func _ready() -> void:
 		player.setup(player_data)
 		player.global_position = spawn.get_child(i).global_position
 	
-
-
 # Called every frame. 'delta' is the elapsed time since the previous frame.
 func _process(delta: float) -> void:
 	pass

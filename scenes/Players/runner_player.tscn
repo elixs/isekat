@@ -15,7 +15,9 @@ jump_time_to_descent = 0.2
 wall_jump_height = 30.0
 wall_jump_reach = 25.0
 wall_jump_time_to_peak = 0.3
-grip_force = 2.0
+grip_force = 4.0
+coyote_jump_frames = 5
+coyote_wall_jump_frames = 5
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="."]
 shape = SubResource("CapsuleShape2D_s2jkn")

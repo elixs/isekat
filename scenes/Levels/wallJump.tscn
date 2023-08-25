@@ -17,7 +17,7 @@ position = Vector2(4, 20)
 scale = Vector2(0.181326, 2.16266)
 
 [node name="Box" parent="." instance=ExtResource("4_t53ik")]
-position = Vector2(158, 138)
+position = Vector2(-528, 146)
 scale = Vector2(10.996, 0.171859)
 
 [node name="Spawn" type="Node2D" parent="."]
@@ -26,7 +26,7 @@ scale = Vector2(10.996, 0.171859)
 position = Vector2(39, 89)
 
 [node name="Marker2D2" type="Marker2D" parent="Spawn"]
-position = Vector2(210, 95)
+position = Vector2(128, 93)
 
 [node name="Wall3" parent="." instance=ExtResource("4_t53ik")]
 position = Vector2(248, 26)
