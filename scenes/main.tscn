@@ -1,12 +1,14 @@
-[gd_scene load_steps=4 format=3 uid="uid://b5hufqs7sbm01"]
+[gd_scene load_steps=5 format=3 uid="uid://b5hufqs7sbm01"]
 
 [ext_resource type="Script" path="res://scenes/main.gd" id="1_ysfbh"]
-[ext_resource type="PackedScene" uid="uid://b3mhsy021dqog" path="res://scenes/player.tscn" id="2_e1311"]
+[ext_resource type="PackedScene" uid="uid://cs5eeqyvay4np" path="res://scenes/Players/runner_player.tscn" id="2_x6crc"]
 [ext_resource type="PackedScene" uid="uid://duc5yompaf61l" path="res://scenes/box.tscn" id="3_cvene"]
+[ext_resource type="PackedScene" uid="uid://ccoblws6jcegc" path="res://scenes/Players/chaser_player.tscn" id="3_m0tb5"]
 
 [node name="Main" type="Node2D"]
 script = ExtResource("1_ysfbh")
-player_scene = ExtResource("2_e1311")
+player_a_scene = ExtResource("2_x6crc")
+player_b_scene = ExtResource("3_m0tb5")
 
 [node name="Players" type="Node2D" parent="."]
 

@@ -1,4 +1,4 @@
-class_name Player
+class_name RunnerPlayer
 extends CharacterBody2D
 
 var max_speed = 200
@@ -43,6 +43,7 @@ func send_info(pos: Vector2, vel: Vector2) -> void:
 @rpc("call_local", "reliable")
 func jump():
 	velocity.y = -jump_speed
+	Debug.dprint("Runner")
 
 
 func setup(player_data: Game.PlayerData):
