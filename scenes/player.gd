@@ -6,6 +6,18 @@ var jump_speed = 200
 var acceleration = 1000
 var gravity = 400
 
+@onready var animation_tree: AnimationTree = $AnimationTree
+@onready var playback: AnimationNodeStateMachinePlayback = animation_tree.get("parameters/playback")
+@onready var pivot: Node2D = $Pivot
+@onready var camera_2d: Camera2D = $Camera2D
+
+@onready var bullet_spawner: MultiplayerSpawner = $BulletSpawner
+
+
+func _ready() -> void:
+	animation_tree.active = true
+#	set_multiplayer_authority(name.to_int())
+
 
 func _physics_process(delta: float) -> void:
 #	Debug.dprint(velocity)
@@ -23,10 +35,31 @@ func _physics_process(delta: float) -> void:
 		velocity.x = move_toward(velocity.x, max_speed * move_input, acceleration * delta)
 		
 		send_info.rpc(global_position, velocity)
+		
+		
+		if Input.is_action_just_pressed("fire"):
+			bullet_spawner.fire()
 #	else:
 #		pass
 
 	move_and_slide()
+	
+	
+	# animation
+	
+	if velocity.x != 0:
+		pivot.scale.x = sign(velocity.x)
+	
+	if is_on_floor():
+		if abs(velocity.x) > 0:
+			playback.travel("run")
+		else:
+			playback.travel("idle")
+	else:
+		if velocity.y < 0:
+			playback.travel("jump")
+		else:
+			playback.travel("fall")
 
 func _input(event: InputEvent) -> void:
 	if is_multiplayer_authority():
@@ -46,10 +79,12 @@ func jump():
 
 
 func setup(player_data: Game.PlayerData):
-	set_multiplayer_authority(player_data.id)
+	set_multiplayer_authority(player_data.id, false)
 	name = str(player_data.id)
 	Debug.dprint(player_data.name, 30)
 	Debug.dprint(player_data.role, 30)
+#	if multiplayer.get_unique_id() == player_data.id:
+#		camera_2d.enabled = true
 
 
 
@@ -57,3 +92,5 @@ func setup(player_data: Game.PlayerData):
 func test():
 #	if is_multiplayer_authority():
 	Debug.dprint("test - player: %s" % name, 30)
+
+

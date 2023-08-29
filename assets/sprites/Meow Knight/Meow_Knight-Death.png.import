@@ -2,16 +2,16 @@
 
 importer="texture"
 type="CompressedTexture2D"
-uid="uid://dnkrkojm5dy5u"
-path="res://.godot/imported/Meow-Knight_Attack_4.png-fac27969bac46a5763a251ffc39ec255.ctex"
+uid="uid://cn4r7lh61qoo1"
+path="res://.godot/imported/Meow_Knight-Death.png-a15962ffdb294fe2a19f8f38843f95df.ctex"
 metadata={
 "vram_texture": false
 }
 
 [deps]
 
-source_file="res://assets/Meow Knight/Meow-Knight_Attack_4.png"
-dest_files=["res://.godot/imported/Meow-Knight_Attack_4.png-fac27969bac46a5763a251ffc39ec255.ctex"]
+source_file="res://assets/sprites/Meow Knight/Meow_Knight-Death.png"
+dest_files=["res://.godot/imported/Meow_Knight-Death.png-a15962ffdb294fe2a19f8f38843f95df.ctex"]
 
 [params]
 
