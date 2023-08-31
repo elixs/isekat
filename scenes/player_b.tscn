@@ -1,0 +1,19 @@
+[gd_scene load_steps=4 format=3 uid="uid://c1n3leuih025r"]
+
+[ext_resource type="PackedScene" uid="uid://b3mhsy021dqog" path="res://scenes/player.tscn" id="1_8buvs"]
+[ext_resource type="Script" path="res://scenes/player_b.gd" id="2_x8tx0"]
+
+[sub_resource type="CapsuleShape2D" id="CapsuleShape2D_b1mol"]
+radius = 6.0
+height = 24.0
+
+[node name="Player" instance=ExtResource("1_8buvs")]
+script = ExtResource("2_x8tx0")
+max_jumps = 1
+
+[node name="Sprite2D" parent="Pivot" index="0"]
+position = Vector2(16, -20)
+scale = Vector2(2, 2)
+
+[node name="CollisionShape2D" parent="." index="1"]
+shape = SubResource("CapsuleShape2D_b1mol")

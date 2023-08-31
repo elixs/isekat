@@ -1,15 +1,15 @@
-[gd_scene load_steps=37 format=3 uid="uid://b3mhsy021dqog"]
+[gd_scene load_steps=37 format=3 uid="uid://bjcwnuotusbr3"]
 
-[ext_resource type="Script" path="res://scenes/player.gd" id="1_xuxkm"]
-[ext_resource type="Texture2D" uid="uid://ck5jauofqrn5d" path="res://assets/sprites/Meow Knight/Meow_Knight-Idle.png" id="2_jha4h"]
-[ext_resource type="PackedScene" uid="uid://crxexi5ytbfgm" path="res://scenes/bullet.tscn" id="2_t6y8b"]
-[ext_resource type="Texture2D" uid="uid://d0grllhygjom4" path="res://assets/sprites/Meow Knight/Meow_Knight-Run.png" id="3_h78rm"]
-[ext_resource type="Texture2D" uid="uid://q7fxpeqcfcl5" path="res://assets/sprites/Meow Knight/Meow_Knight-Jump.png" id="4_qxnuc"]
-[ext_resource type="Script" path="res://scenes/bullet_spawner.gd" id="6_a5i1f"]
+[ext_resource type="Script" path="res://scenes/player.gd" id="1_uxorj"]
+[ext_resource type="Texture2D" uid="uid://ck5jauofqrn5d" path="res://assets/sprites/Meow Knight/Meow_Knight-Idle.png" id="2_gtv7i"]
+[ext_resource type="Texture2D" uid="uid://q7fxpeqcfcl5" path="res://assets/sprites/Meow Knight/Meow_Knight-Jump.png" id="3_muvua"]
+[ext_resource type="Texture2D" uid="uid://d0grllhygjom4" path="res://assets/sprites/Meow Knight/Meow_Knight-Run.png" id="4_vw8l8"]
+[ext_resource type="Script" path="res://scenes/bullet_spawner.gd" id="5_gofp2"]
+[ext_resource type="PackedScene" uid="uid://crxexi5ytbfgm" path="res://scenes/bullet.tscn" id="6_rcvtp"]
 
 [sub_resource type="CapsuleShape2D" id="CapsuleShape2D_s2jkn"]
-radius = 3.0
-height = 12.0
+radius = 6.0
+height = 24.0
 
 [sub_resource type="Animation" id="Animation_c17w3"]
 length = 0.001
@@ -23,7 +23,7 @@ tracks/0/keys = {
 "times": PackedFloat32Array(0),
 "transitions": PackedFloat32Array(1),
 "update": 1,
-"values": [ExtResource("2_jha4h")]
+"values": [ExtResource("2_gtv7i")]
 }
 tracks/1/type = "value"
 tracks/1/imported = false
@@ -76,7 +76,7 @@ tracks/0/keys = {
 "times": PackedFloat32Array(0),
 "transitions": PackedFloat32Array(1),
 "update": 1,
-"values": [ExtResource("4_qxnuc")]
+"values": [ExtResource("3_muvua")]
 }
 tracks/1/type = "value"
 tracks/1/imported = false
@@ -117,7 +117,7 @@ tracks/0/keys = {
 "times": PackedFloat32Array(0),
 "transitions": PackedFloat32Array(1),
 "update": 1,
-"values": [ExtResource("2_jha4h")]
+"values": [ExtResource("2_gtv7i")]
 }
 tracks/1/type = "value"
 tracks/1/imported = false
@@ -158,7 +158,7 @@ tracks/0/keys = {
 "times": PackedFloat32Array(0),
 "transitions": PackedFloat32Array(1),
 "update": 1,
-"values": [ExtResource("4_qxnuc")]
+"values": [ExtResource("3_muvua")]
 }
 tracks/1/type = "value"
 tracks/1/imported = false
@@ -198,7 +198,7 @@ tracks/0/keys = {
 "times": PackedFloat32Array(0),
 "transitions": PackedFloat32Array(1),
 "update": 1,
-"values": [ExtResource("4_qxnuc")]
+"values": [ExtResource("3_muvua")]
 }
 tracks/1/type = "value"
 tracks/1/imported = false
@@ -238,7 +238,7 @@ tracks/0/keys = {
 "times": PackedFloat32Array(0),
 "transitions": PackedFloat32Array(1),
 "update": 1,
-"values": [ExtResource("4_qxnuc")]
+"values": [ExtResource("3_muvua")]
 }
 tracks/1/type = "value"
 tracks/1/imported = false
@@ -278,7 +278,7 @@ tracks/0/keys = {
 "times": PackedFloat32Array(0),
 "transitions": PackedFloat32Array(1),
 "update": 1,
-"values": [ExtResource("4_qxnuc")]
+"values": [ExtResource("3_muvua")]
 }
 tracks/1/type = "value"
 tracks/1/imported = false
@@ -319,7 +319,7 @@ tracks/0/keys = {
 "times": PackedFloat32Array(0),
 "transitions": PackedFloat32Array(1),
 "update": 1,
-"values": [ExtResource("3_h78rm")]
+"values": [ExtResource("4_vw8l8")]
 }
 tracks/1/type = "value"
 tracks/1/imported = false
@@ -428,21 +428,23 @@ graph_offset = Vector2(124, -115)
 [node name="Player" type="CharacterBody2D"]
 collision_layer = 2
 collision_mask = 3
-script = ExtResource("1_xuxkm")
+script = ExtResource("1_uxorj")
 
 [node name="Pivot" type="Node2D" parent="."]
 
 [node name="Sprite2D" type="Sprite2D" parent="Pivot"]
-position = Vector2(8, -10)
-texture = ExtResource("2_jha4h")
+position = Vector2(16, -20)
+scale = Vector2(2, 2)
+texture = ExtResource("2_gtv7i")
 hframes = 6
 frame = 2
 
 [node name="BulletSpawn" type="Marker2D" parent="Pivot"]
-position = Vector2(5, -6)
+position = Vector2(10, -12)
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="."]
 shape = SubResource("CapsuleShape2D_s2jkn")
+metadata/_edit_lock_ = true
 
 [node name="AnimationPlayer" type="AnimationPlayer" parent="."]
 libraries = {
@@ -455,11 +457,10 @@ anim_player = NodePath("../AnimationPlayer")
 
 [node name="Camera2D" type="Camera2D" parent="."]
 enabled = false
-zoom = Vector2(1.25, 1.25)
-position_smoothing_enabled = true
+zoom = Vector2(1.5, 1.5)
 
 [node name="BulletSpawner" type="MultiplayerSpawner" parent="." node_paths=PackedStringArray("bullet_spawn")]
 spawn_path = NodePath(".")
-script = ExtResource("6_a5i1f")
-bullet_scene = ExtResource("2_t6y8b")
+script = ExtResource("5_gofp2")
+bullet_scene = ExtResource("6_rcvtp")
 bullet_spawn = NodePath("../Pivot/BulletSpawn")
