@@ -5,6 +5,9 @@ extends CharacterBody2D
 @export var max_speed : float = 200
 @export var acceleration : float = 5000
 
+@onready var camera_2d: Camera2D = $Camera2D
+@onready var pivot: Node2D = $Pivot
+
 # Flying
 @export var max_fly_up_speed : float = 240
 @export var max_fly_side_speed : float = 1000
@@ -36,7 +39,7 @@ func _physics_process(delta: float) -> void:
 		if Input.is_action_pressed("jump"):
 			#jump.rpc() jump unabled for the moment
 #			jump()
-			print("Here")
+
 			velocity.y = move_toward(velocity.y, -max_fly_up_speed, fly_acceleration_up * delta)
 			is_flying = true;
 		
@@ -50,7 +53,10 @@ func _physics_process(delta: float) -> void:
 #		pass
 
 	move_and_slide()
-	
+
+	if velocity.x != 0:
+		pivot.scale.x = sign(velocity.x)
+
 func get_gravity() -> float:
 	if is_flying: return fly_gravity
 	return jump_gravity if velocity.y < 0.0 else fall_gravity
@@ -72,7 +78,9 @@ func setup(player_data: Game.PlayerData):
 	name = str(player_data.id)
 	Debug.dprint(player_data.name, 30)
 	Debug.dprint(player_data.role, 30)
-
+	
+	if multiplayer.get_unique_id() == player_data.id:
+		camera_2d.enabled = true
 
 
 @rpc

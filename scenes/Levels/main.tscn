@@ -19,7 +19,7 @@ scale = Vector2(10.996, 0.171859)
 [node name="Spawn" type="Node2D" parent="."]
 
 [node name="Marker2D" type="Marker2D" parent="Spawn"]
-position = Vector2(39, 89)
+position = Vector2(113, 60)
 
 [node name="Marker2D2" type="Marker2D" parent="Spawn"]
 position = Vector2(210, 95)

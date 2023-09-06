@@ -23,7 +23,13 @@ coyote_wall_jump_frames = 5
 [node name="CollisionShape2D" type="CollisionShape2D" parent="."]
 shape = SubResource("CapsuleShape2D_s2jkn")
 
-[node name="Sprite2D" type="Sprite2D" parent="."]
+[node name="Camera2D" type="Camera2D" parent="."]
+enabled = false
+
+[node name="Pivot" type="Node2D" parent="."]
+
+[node name="Sprite2D" type="Sprite2D" parent="Pivot"]
+modulate = Color(0.521569, 0.329412, 0.133333, 1)
 position = Vector2(0, 3)
 texture = ExtResource("2_n0e3o")
 vframes = 6
