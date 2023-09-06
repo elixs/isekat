@@ -9,6 +9,7 @@ height = 12.0
 
 [node name="Runner" type="CharacterBody2D"]
 script = ExtResource("1_ehnvi")
+max_speed = 300.0
 jump_height = 30.0
 jump_time_to_peak = 0.3
 jump_time_to_descent = 0.2
