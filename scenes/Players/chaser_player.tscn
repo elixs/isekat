@@ -17,3 +17,6 @@ shape = SubResource("CapsuleShape2D_s2jkn")
 position = Vector2(0, 3)
 texture = ExtResource("2_2rtdg")
 vframes = 6
+
+[node name="Camera2D" type="Camera2D" parent="."]
+enabled = false

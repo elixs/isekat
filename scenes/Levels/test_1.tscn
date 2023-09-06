@@ -1,0 +1,60 @@
+[gd_scene load_steps=5 format=3 uid="uid://b3qdph03c43kp"]
+
+[ext_resource type="PackedScene" uid="uid://duc5yompaf61l" path="res://scenes/Obstacles/box.tscn" id="1_gyld8"]
+[ext_resource type="Script" path="res://scenes/Levels/test_1.gd" id="1_ulgou"]
+[ext_resource type="PackedScene" uid="uid://cs5eeqyvay4np" path="res://scenes/Players/runner_player.tscn" id="2_i4cja"]
+[ext_resource type="PackedScene" uid="uid://ccoblws6jcegc" path="res://scenes/Players/chaser_player.tscn" id="3_iobhr"]
+
+[node name="test_1" type="Node2D"]
+position = Vector2(177, -95)
+script = ExtResource("1_ulgou")
+player_a_scene = ExtResource("2_i4cja")
+player_b_scene = ExtResource("3_iobhr")
+
+[node name="Players" type="Node2D" parent="."]
+position = Vector2(-158, 110)
+
+[node name="Box" parent="." instance=ExtResource("1_gyld8")]
+position = Vector2(306, 220)
+scale = Vector2(7.116, 0.182)
+
+[node name="Box2" parent="." instance=ExtResource("1_gyld8")]
+position = Vector2(191, 136)
+scale = Vector2(5.24, 0.15)
+
+[node name="Wall" parent="." instance=ExtResource("1_gyld8")]
+position = Vector2(-156, 96)
+scale = Vector2(0.181326, 2.16266)
+
+[node name="Box3" parent="." instance=ExtResource("1_gyld8")]
+position = Vector2(364, 47)
+scale = Vector2(6.175, 0.15)
+
+[node name="Wall2" parent="." instance=ExtResource("1_gyld8")]
+position = Vector2(772, 97)
+scale = Vector2(0.181326, 2.16266)
+
+[node name="Box4" parent="." instance=ExtResource("1_gyld8")]
+position = Vector2(308, -34)
+scale = Vector2(7.056, 0.182)
+
+[node name="Spawn" type="Node2D" parent="."]
+position = Vector2(-124, 108)
+
+[node name="Marker2D" type="Marker2D" parent="Spawn"]
+position = Vector2(41, 79)
+
+[node name="Marker2D2" type="Marker2D" parent="Spawn"]
+position = Vector2(135, 82)
+
+[node name="Box5" parent="." instance=ExtResource("1_gyld8")]
+position = Vector2(607, 179)
+scale = Vector2(0.795, 0.02)
+
+[node name="Box6" parent="." instance=ExtResource("1_gyld8")]
+position = Vector2(648, 150)
+scale = Vector2(0.795, 0.02)
+
+[node name="Box7" parent="." instance=ExtResource("1_gyld8")]
+position = Vector2(-80, 78)
+scale = Vector2(0.375, 0.009)

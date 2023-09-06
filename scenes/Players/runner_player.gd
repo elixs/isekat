@@ -5,6 +5,11 @@ extends CharacterBody2D
 @export var max_speed : float = 200
 @export var acceleration : float = 1000
 
+
+
+#Camera
+
+@onready var camera_2d: Camera2D = $Camera2D
 # JUMP # 
 @export var jump_height : float 
 @export var jump_time_to_peak: float
@@ -113,6 +118,9 @@ func setup(player_data: Game.PlayerData):
 	name = str(player_data.id)
 	Debug.dprint(player_data.name, 30)
 	Debug.dprint(player_data.role, 30)
+	
+	if multiplayer.get_unique_id() == player_data.id:
+		camera_2d.enabled = true
 
 @rpc("unreliable_ordered")
 func send_info(pos: Vector2, vel: Vector2) -> void:

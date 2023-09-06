@@ -6,6 +6,7 @@ var jump_speed = 200
 var acceleration = 1000
 var gravity = 400
 
+@onready var camera_2d: Camera2D = $Camera2D
 
 func _physics_process(delta: float) -> void:
 #	Debug.dprint(velocity)
@@ -19,7 +20,7 @@ func _physics_process(delta: float) -> void:
 		if Input.is_action_just_pressed("jump"):
 			jump.rpc()
 #			jump()
-	
+		
 		velocity.x = move_toward(velocity.x, max_speed * move_input, acceleration * delta)
 		
 		send_info.rpc(global_position, velocity)
@@ -45,7 +46,9 @@ func setup(player_data: Game.PlayerData):
 	name = str(player_data.id)
 	Debug.dprint(player_data.name, 30)
 	Debug.dprint(player_data.role, 30)
-
+	
+	if multiplayer.get_unique_id() == player_data.id:
+		camera_2d.enabled = true
 
 
 @rpc
