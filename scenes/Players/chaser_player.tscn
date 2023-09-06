@@ -9,6 +9,10 @@ height = 12.0
 
 [node name="Chaser" type="CharacterBody2D"]
 script = ExtResource("1_7nirk")
+acceleration = 2000.0
+jump_height = 20.0
+jump_time_to_peak = 0.1
+jump_time_to_descent = 0.1
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="."]
 shape = SubResource("CapsuleShape2D_s2jkn")
