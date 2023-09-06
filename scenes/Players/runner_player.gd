@@ -10,6 +10,7 @@ extends CharacterBody2D
 #Camera
 
 @onready var camera_2d: Camera2D = $Camera2D
+@onready var pivot: Node2D = $Pivot
 # JUMP # 
 @export var jump_height : float 
 @export var jump_time_to_peak: float
@@ -26,7 +27,7 @@ extends CharacterBody2D
 @export var grip_force : float # Reduction of gravity when sliding on walls
 
 @onready var wall_jump_velocity_x : float = (2.0 * wall_jump_reach) / (wall_jump_time_to_peak)
-@onready var wall_jump_velocity_y : float = ((2.0 * wall_jump_height) / wall_jump_time_to_peak) * -1
+@onready var wall_jump_velocity_y : float = ((2.0  * wall_jump_height) / wall_jump_time_to_peak) * -1
 @onready var wall_jump_gravity : float = ((-2.0 * wall_jump_height) / pow(wall_jump_time_to_peak, 2)) * -1
 @onready var horizontal_air_drag : float = (2.0 * wall_jump_reach) / wall_jump_time_to_peak
 
@@ -81,6 +82,9 @@ func _physics_process(delta: float) -> void:
 		jump_window -= 1
 	
 	move_and_slide()
+	if velocity.x != 0:
+		pivot.scale.x = sign(velocity.x)
+	
 	
 func get_gravity() -> float:
 	if velocity.y > 0.0 :# drag shouldnt be affected by coyote

@@ -6,7 +6,7 @@
 [ext_resource type="PackedScene" uid="uid://ccoblws6jcegc" path="res://scenes/Players/chaser_player.tscn" id="3_iobhr"]
 
 [node name="test_1" type="Node2D"]
-position = Vector2(177, -95)
+position = Vector2(5, 63)
 script = ExtResource("1_ulgou")
 player_a_scene = ExtResource("2_i4cja")
 player_b_scene = ExtResource("3_iobhr")

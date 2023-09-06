@@ -7,6 +7,7 @@ var acceleration = 1000
 var gravity = 400
 
 @onready var camera_2d: Camera2D = $Camera2D
+@onready var pivot: Node2D = $Pivot
 
 func _physics_process(delta: float) -> void:
 #	Debug.dprint(velocity)
@@ -28,7 +29,11 @@ func _physics_process(delta: float) -> void:
 #		pass
 
 	move_and_slide()
-
+	if velocity.x != 0:
+		pivot.scale.x = sign(velocity.x)
+	
+	
+	
 @rpc("unreliable_ordered")
 func send_info(pos: Vector2, vel: Vector2) -> void:
 	global_position = lerp(global_position, pos, 0.5)
