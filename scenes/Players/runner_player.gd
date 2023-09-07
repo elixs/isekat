@@ -87,7 +87,7 @@ func _physics_process(delta: float) -> void:
 	
 	
 func get_gravity() -> float:
-	if velocity.y > 0.0 :# drag shouldnt be affected by coyote
+	if is_gripping():# drag shouldnt be affected by coyote
 		return fall_gravity / grip_force
 	elif velocity.y < 0.0:
 		return wall_jump_gravity if wall_jumping else jump_gravity

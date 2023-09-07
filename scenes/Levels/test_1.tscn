@@ -1,4 +1,4 @@
-[gd_scene load_steps=5 format=3 uid="uid://b3qdph03c43kp"]
+[gd_scene load_steps=5 format=3 uid="uid://cqav4tm6t8iqx"]
 
 [ext_resource type="PackedScene" uid="uid://duc5yompaf61l" path="res://scenes/Obstacles/box.tscn" id="1_gyld8"]
 [ext_resource type="Script" path="res://scenes/Levels/test_1.gd" id="1_ulgou"]

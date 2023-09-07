@@ -14,9 +14,9 @@ jump_height = 30.0
 jump_time_to_peak = 0.3
 jump_time_to_descent = 0.2
 wall_jump_height = 30.0
-wall_jump_reach = 25.0
+wall_jump_reach = 35.0
 wall_jump_time_to_peak = 0.3
-grip_force = 4.0
+grip_force = 200.0
 coyote_jump_frames = 5
 coyote_wall_jump_frames = 5
 
@@ -29,7 +29,7 @@ enabled = false
 [node name="Pivot" type="Node2D" parent="."]
 
 [node name="Sprite2D" type="Sprite2D" parent="Pivot"]
-modulate = Color(0.521569, 0.329412, 0.133333, 1)
+modulate = Color(0.145098, 1, 1, 1)
 position = Vector2(0, 3)
 texture = ExtResource("2_n0e3o")
 vframes = 6
