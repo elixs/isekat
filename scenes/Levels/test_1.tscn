@@ -1,15 +1,13 @@
-[gd_scene load_steps=10 format=3 uid="uid://cqav4tm6t8iqx"]
+[gd_scene load_steps=9 format=3 uid="uid://cqav4tm6t8iqx"]
 
 [ext_resource type="PackedScene" uid="uid://duc5yompaf61l" path="res://scenes/Obstacles/box.tscn" id="1_gyld8"]
 [ext_resource type="Script" path="res://scenes/Levels/test_1.gd" id="1_ulgou"]
 [ext_resource type="PackedScene" uid="uid://cs5eeqyvay4np" path="res://scenes/Players/runner_player.tscn" id="2_i4cja"]
 [ext_resource type="PackedScene" uid="uid://ccoblws6jcegc" path="res://scenes/Players/chaser_player.tscn" id="3_iobhr"]
-[ext_resource type="PackedScene" uid="uid://dps8t0wdb1hq8" path="res://scenes/Levels/breakable_wall.tscn" id="5_7h543"]
+[ext_resource type="PackedScene" uid="uid://dps8t0wdb1hq8" path="res://scenes/Obstacles/breakable_wall.tscn" id="5_7h543"]
 [ext_resource type="PackedScene" uid="uid://l5cemhpu3cif" path="res://scenes/Levels/test_2.tscn" id="6_dpveg"]
-[ext_resource type="Script" path="res://scenes/Levels/Portal.gd" id="7_kfccf"]
-[ext_resource type="Texture2D" uid="uid://p1w61qttpon4" path="res://icon.svg" id="7_kfpv3"]
-
-[sub_resource type="RectangleShape2D" id="RectangleShape2D_cqndg"]
+[ext_resource type="PackedScene" uid="uid://8jrmv58r3bq5" path="res://scenes/Obstacles/portal.tscn" id="7_02jy6"]
+[ext_resource type="PackedScene" uid="uid://b6fj7lvt81t1y" path="res://scenes/Obstacles/portal2.tscn" id="8_mggqe"]
 
 [node name="test_1" type="Node2D"]
 position = Vector2(5, 63)
@@ -48,10 +46,10 @@ scale = Vector2(7.056, 0.182)
 position = Vector2(-124, 108)
 
 [node name="Marker2D" type="Marker2D" parent="Spawn"]
-position = Vector2(41, 79)
+position = Vector2(79, 84)
 
 [node name="Marker2D2" type="Marker2D" parent="Spawn"]
-position = Vector2(135, 82)
+position = Vector2(26, 84)
 
 [node name="Box5" parent="." instance=ExtResource("1_gyld8")]
 position = Vector2(607, 179)
@@ -65,24 +63,31 @@ scale = Vector2(0.795, 0.02)
 position = Vector2(-80, 78)
 scale = Vector2(0.375, 0.009)
 
+[node name="Breakable6" parent="." instance=ExtResource("5_7h543")]
+position = Vector2(45, 71)
+
+[node name="Breakable5" parent="." instance=ExtResource("5_7h543")]
+position = Vector2(-8, 115)
+
+[node name="Breakable4" parent="." instance=ExtResource("5_7h543")]
+position = Vector2(152, 66)
+
+[node name="Breakable3" parent="." instance=ExtResource("5_7h543")]
+position = Vector2(98, 115)
+
+[node name="Breakable7" parent="." instance=ExtResource("5_7h543")]
+position = Vector2(207, 113)
+
 [node name="Breakable" parent="." instance=ExtResource("5_7h543")]
-position = Vector2(79, 187)
+position = Vector2(300, 116)
+
+[node name="Breakable2" parent="." instance=ExtResource("5_7h543")]
+position = Vector2(250, 66)
 
 [node name="test_2" parent="." instance=ExtResource("6_dpveg")]
 position = Vector2(1131, 123)
 
-[node name="Portal" type="StaticBody2D" parent="." groups=["portal"]]
-position = Vector2(739, 18)
-script = ExtResource("7_kfccf")
+[node name="Portal" parent="." instance=ExtResource("7_02jy6")]
 
-[node name="CollisionShape2D" type="CollisionShape2D" parent="Portal"]
-position = Vector2(-779, 153)
-shape = SubResource("RectangleShape2D_cqndg")
-
-[node name="Sprite2D" type="Sprite2D" parent="Portal"]
-position = Vector2(-779, 153)
-scale = Vector2(0.25, 0.25)
-texture = ExtResource("7_kfpv3")
-
-[node name="Direction" type="Marker2D" parent="Portal"]
-position = Vector2(530, -4)
+[node name="Portal2" parent="." instance=ExtResource("8_mggqe")]
+position = Vector2(1369, 838)

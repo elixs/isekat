@@ -1,0 +1,20 @@
+[gd_scene load_steps=4 format=3 uid="uid://b6fj7lvt81t1y"]
+
+[ext_resource type="Script" path="res://scenes/Obstacles/Portal.gd" id="1_bv3s7"]
+[ext_resource type="Texture2D" uid="uid://p1w61qttpon4" path="res://icon.svg" id="2_aqmpy"]
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_cqndg"]
+
+[node name="Portal" type="StaticBody2D" groups=["portal"]]
+position = Vector2(739, 18)
+script = ExtResource("1_bv3s7")
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="."]
+shape = SubResource("RectangleShape2D_cqndg")
+
+[node name="Sprite2D" type="Sprite2D" parent="."]
+scale = Vector2(0.25, 0.25)
+texture = ExtResource("2_aqmpy")
+
+[node name="Direction" type="Marker2D" parent="."]
+position = Vector2(-1269, -654)
