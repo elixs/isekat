@@ -39,7 +39,6 @@ func _physics_process(delta: float) -> void:
 		if Input.is_action_pressed("jump"):
 			#jump.rpc() jump unabled for the moment
 #			jump()
-
 			velocity.y = move_toward(velocity.y, -max_fly_up_speed, fly_acceleration_up * delta)
 			is_flying = true;
 		
@@ -49,9 +48,17 @@ func _physics_process(delta: float) -> void:
 			velocity.x = move_toward(velocity.x, max_speed * move_input, acceleration * delta)
 		
 		send_info.rpc(global_position, velocity)
-#	else:
-#		pass
-
+	
+	for index in range(get_slide_collision_count()):
+			var collision = get_slide_collision(index)
+			var collider = collision.get_collider()
+			if (collider != null):
+				if collider.is_in_group("destroyable"):
+					collider.queue_free()
+				elif collider.is_in_group("portal"):
+					collider.teleport(self)
+						
+				
 	move_and_slide()
 
 	if velocity.x != 0:
@@ -70,18 +77,14 @@ func send_info(pos: Vector2, vel: Vector2) -> void:
 @rpc("call_local", "reliable")
 func jump():
 	velocity.y = jump_velocity
-	Debug.dprint("Chaser")
 
 
 func setup(player_data: Game.PlayerData):
 	set_multiplayer_authority(player_data.id)
 	name = str(player_data.id)
-	Debug.dprint(player_data.name, 30)
-	Debug.dprint(player_data.role, 30)
 	
 	if multiplayer.get_unique_id() == player_data.id:
 		camera_2d.enabled = true
-
 
 @rpc
 func test():

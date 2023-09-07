@@ -80,6 +80,14 @@ func _physics_process(delta: float) -> void:
 		
 		wall_jump_window -= 1
 		jump_window -= 1
+		
+	
+	for index in range(get_slide_collision_count()):
+			var collision = get_slide_collision(index)
+			var collider = collision.get_collider()
+			if (collider != null):
+				if collider.is_in_group("portal"):
+					collider.teleport(self)
 	
 	move_and_slide()
 	if velocity.x != 0:
@@ -111,7 +119,6 @@ func get_which_wall_side_collided() -> WallSide:
 
 func jump():
 	velocity.y = jump_velocity
-	Debug.dprint("Runner")
 	
 func wall_jump(side_multiplier):
 	velocity.y = wall_jump_velocity_y
@@ -120,8 +127,6 @@ func wall_jump(side_multiplier):
 func setup(player_data: Game.PlayerData):
 	set_multiplayer_authority(player_data.id)
 	name = str(player_data.id)
-	Debug.dprint(player_data.name, 30)
-	Debug.dprint(player_data.role, 30)
 	
 	if multiplayer.get_unique_id() == player_data.id:
 		camera_2d.enabled = true

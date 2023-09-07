@@ -1,0 +1,17 @@
+[gd_scene load_steps=3 format=3 uid="uid://dps8t0wdb1hq8"]
+
+[ext_resource type="Texture2D" uid="uid://p1w61qttpon4" path="res://icon.svg" id="1_amaok"]
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_udced"]
+size = Vector2(25, 24)
+
+[node name="Breakable" type="StaticBody2D" groups=["destroyable"]]
+position = Vector2(91, 78)
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="."]
+shape = SubResource("RectangleShape2D_udced")
+
+[node name="Sprite2D" type="Sprite2D" parent="."]
+position = Vector2(1, 0)
+scale = Vector2(0.21875, 0.203125)
+texture = ExtResource("1_amaok")
