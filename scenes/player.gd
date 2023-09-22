@@ -6,7 +6,8 @@ enum State {
 	SKILL
 }
 
-var state: State = State.NORMAL
+var state: State = State.NORMAL:
+	set = set_state
 		
 
 var max_speed = 200
@@ -31,6 +32,7 @@ func _ready() -> void:
 
 
 func _physics_process(delta: float) -> void:
+	
 	match state:
 		State.NORMAL:
 			state_normal(delta)
@@ -111,6 +113,7 @@ func jump():
 
 
 func setup(player_data: Game.PlayerData):
+	
 	set_multiplayer_authority(player_data.id, false)
 	name = str(player_data.id)
 	Debug.dprint(player_data.name, 30)
@@ -132,6 +135,5 @@ func skill():
 	Debug.dprint("Player Skill")
 
 
-@rpc("call_local", "reliable")
 func set_state(value):
 	state = value

@@ -3,9 +3,9 @@ extends Player
 
 func skill():
 	if state == Player.State.NORMAL:
-		set_state(Player.State.SKILL)
+		state = Player.State.SKILL
 	else:
-		set_state(Player.State.NORMAL)
+		state = Player.State.NORMAL
 	Debug.dprint("Player B Skill")
 
 func state_skill(delta: float) -> void:

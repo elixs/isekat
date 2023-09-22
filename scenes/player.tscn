@@ -456,6 +456,7 @@ anim_player = NodePath("../AnimationPlayer")
 [node name="Camera2D" type="Camera2D" parent="."]
 enabled = false
 zoom = Vector2(1.25, 1.25)
+process_callback = 0
 position_smoothing_enabled = true
 
 [node name="BulletSpawner" type="MultiplayerSpawner" parent="." node_paths=PackedStringArray("bullet_spawn")]

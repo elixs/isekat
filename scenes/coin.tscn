@@ -1,0 +1,11 @@
+[gd_scene load_steps=2 format=3 uid="uid://defdho7m1c0gq"]
+
+[ext_resource type="Texture2D" uid="uid://p1w61qttpon4" path="res://icon.svg" id="1_d5f7i"]
+
+[node name="Coin" type="Area2D"]
+
+[node name="Sprite2D" type="Sprite2D" parent="."]
+scale = Vector2(0.125, 0.125)
+texture = ExtResource("1_d5f7i")
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="."]
