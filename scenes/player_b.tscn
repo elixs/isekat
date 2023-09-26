@@ -12,7 +12,6 @@ script = ExtResource("2_x8tx0")
 max_jumps = 1
 
 [node name="Sprite2D" parent="Pivot" index="0"]
-position = Vector2(16, -20)
 scale = Vector2(2, 2)
 
 [node name="CollisionShape2D" parent="." index="1"]

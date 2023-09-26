@@ -1,4 +1,4 @@
-[gd_scene load_steps=37 format=3 uid="uid://b3mhsy021dqog"]
+[gd_scene load_steps=38 format=3 uid="uid://b3mhsy021dqog"]
 
 [ext_resource type="Script" path="res://scenes/player.gd" id="1_xuxkm"]
 [ext_resource type="Texture2D" uid="uid://ck5jauofqrn5d" path="res://assets/sprites/Meow Knight/Meow_Knight-Idle.png" id="2_jha4h"]
@@ -423,7 +423,13 @@ states/land/position = Vector2(893.571, -55.8861)
 states/run/node = SubResource("AnimationNodeAnimation_2qveh")
 states/run/position = Vector2(604.143, 100)
 transitions = ["Start", "idle", SubResource("AnimationNodeStateMachineTransition_1gsvm"), "idle", "run", SubResource("AnimationNodeStateMachineTransition_q8cnf"), "run", "idle", SubResource("AnimationNodeStateMachineTransition_5jn7n"), "idle", "jump_start", SubResource("AnimationNodeStateMachineTransition_q8gwb"), "jump_start", "jump", SubResource("AnimationNodeStateMachineTransition_tg7m8"), "jump", "jump_fall", SubResource("AnimationNodeStateMachineTransition_q3xyw"), "jump_fall", "fall", SubResource("AnimationNodeStateMachineTransition_lsb5c"), "fall", "land", SubResource("AnimationNodeStateMachineTransition_nwsjl"), "land", "idle", SubResource("AnimationNodeStateMachineTransition_gnmcq"), "land", "run", SubResource("AnimationNodeStateMachineTransition_de2n2"), "idle", "fall", SubResource("AnimationNodeStateMachineTransition_27wto"), "run", "fall", SubResource("AnimationNodeStateMachineTransition_tl8pt")]
-graph_offset = Vector2(124, -115)
+graph_offset = Vector2(-159, -139)
+
+[sub_resource type="SceneReplicationConfig" id="SceneReplicationConfig_kpili"]
+properties/0/path = NodePath(".:animation")
+properties/0/spawn = true
+properties/0/sync = false
+properties/0/watch = true
 
 [node name="Player" type="CharacterBody2D"]
 collision_layer = 2
@@ -433,8 +439,8 @@ script = ExtResource("1_xuxkm")
 [node name="Pivot" type="Node2D" parent="."]
 
 [node name="Sprite2D" type="Sprite2D" parent="Pivot"]
-position = Vector2(8, -10)
 texture = ExtResource("2_jha4h")
+offset = Vector2(8, -10)
 hframes = 6
 frame = 2
 
@@ -464,3 +470,6 @@ spawn_path = NodePath(".")
 script = ExtResource("6_a5i1f")
 bullet_scene = ExtResource("2_t6y8b")
 bullet_spawn = NodePath("../Pivot/BulletSpawn")
+
+[node name="AnimationSynchronizer" type="MultiplayerSynchronizer" parent="."]
+replication_config = SubResource("SceneReplicationConfig_kpili")

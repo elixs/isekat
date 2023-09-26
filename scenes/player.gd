@@ -16,12 +16,23 @@ var acceleration = 1000
 var gravity = 400
 var normal_gravity = 400
 
+@export var animation = "idle":
+	set(value):
+		animation = value
+		if animation_player and animation_tree:
+			if not animation_tree.active:
+				animation_player.play(animation)
+				Debug.dprint("%s - %s" % [name, animation])
+
 @onready var animation_tree: AnimationTree = $AnimationTree
 @onready var playback: AnimationNodeStateMachinePlayback = animation_tree.get("parameters/playback")
 @onready var pivot: Node2D = $Pivot
 @onready var camera_2d: Camera2D = $Camera2D
-
 @onready var bullet_spawner: MultiplayerSpawner = $BulletSpawner
+@onready var sprite_2d = $Pivot/Sprite2D
+@onready var animation_player = $AnimationPlayer
+@onready var animation_synchronizer = $AnimationSynchronizer
+
 
 @export var max_jumps = 2
 var jumps = 0
@@ -32,7 +43,6 @@ func _ready() -> void:
 
 
 func _physics_process(delta: float) -> void:
-	
 	match state:
 		State.NORMAL:
 			state_normal(delta)
@@ -47,8 +57,10 @@ func state_normal(delta: float) -> void:
 	if not is_on_floor():
 		velocity.y += gravity * delta
 	
+	var move_input = 0
+	
 	if is_multiplayer_authority():
-		var move_input = Input.get_axis("move_left", "move_right")
+		move_input = Input.get_axis("move_left", "move_right")
 		
 		if is_on_floor() and jumps != 0:
 			jumps = 0
@@ -67,7 +79,19 @@ func state_normal(delta: float) -> void:
 		
 		
 		if Input.is_action_just_pressed("fire"):
-			bullet_spawner.fire()
+			fire()
+		
+		
+		if is_on_floor():
+			if abs(velocity.x) > 10 or move_input != 0:
+				animation_travel("run")
+			else:
+				animation_travel("idle")
+		else:
+			if velocity.y < 0:
+				animation_travel("jump")
+			else:
+				animation_travel("fall")
 #	else:
 #		pass
 
@@ -79,16 +103,7 @@ func state_normal(delta: float) -> void:
 	if velocity.x != 0:
 		pivot.scale.x = sign(velocity.x)
 	
-	if is_on_floor():
-		if abs(velocity.x) > 0:
-			playback.travel("run")
-		else:
-			playback.travel("idle")
-	else:
-		if velocity.y < 0:
-			playback.travel("jump")
-		else:
-			playback.travel("fall")
+
 
 
 func state_skill(delta: float) -> void:
@@ -122,6 +137,10 @@ func setup(player_data: Game.PlayerData):
 #		modulate = Color.DARK_BLUE
 	if multiplayer.get_unique_id() == player_data.id:
 		camera_2d.enabled = true
+	else:
+		animation_tree.active = false
+	animation_synchronizer.set_multiplayer_authority(player_data.id)
+	
 
 
 
@@ -137,3 +156,18 @@ func skill():
 
 func set_state(value):
 	state = value
+
+
+func fire() -> void:
+	bullet_spawner.fire()
+	var tween = create_tween()
+	tween.tween_property(sprite_2d, "rotation_degrees", -45, 0.1).set_ease(Tween.EASE_OUT).set_trans(Tween.TRANS_ELASTIC)
+#	tween.set_parallel().tween_property(pivot, "scale", Vector2.ONE * 2, 0.1).set_ease(Tween.EASE_OUT).set_trans(Tween.TRANS_CIRC)
+	tween.set_parallel(false).tween_property(sprite_2d, "rotation_degrees", 0, 0.2).set_ease(Tween.EASE_IN).set_trans(Tween.TRANS_EXPO)
+#	tween.set_parallel().tween_property(pivot, "scale", Vector2.ONE, 0.2).set_ease(Tween.EASE_OUT).set_trans(Tween.TRANS_ELASTIC)
+	
+func animation_travel(value: String) -> void:
+	playback.travel(value)
+	if animation != value:
+		animation = value
+	
