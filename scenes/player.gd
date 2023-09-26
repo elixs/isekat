@@ -20,18 +20,20 @@ var normal_gravity = 400
 	set(value):
 		animation = value
 		if animation_player and animation_tree:
-			if not animation_tree.active:
+			if animation_tree.active:
+				playback.travel(animation)
+			else:
 				animation_player.play(animation)
-				Debug.dprint("%s - %s" % [name, animation])
 
 @onready var animation_tree: AnimationTree = $AnimationTree
 @onready var playback: AnimationNodeStateMachinePlayback = animation_tree.get("parameters/playback")
 @onready var pivot: Node2D = $Pivot
 @onready var camera_2d: Camera2D = $Camera2D
 @onready var bullet_spawner: MultiplayerSpawner = $BulletSpawner
-@onready var sprite_2d = $Pivot/Sprite2D
+@onready var sprite_2d = $Pivot/SpritePivot/Sprite2D
 @onready var animation_player = $AnimationPlayer
 @onready var animation_synchronizer = $AnimationSynchronizer
+@onready var sprite_pivot = $Pivot/SpritePivot
 
 
 @export var max_jumps = 2
@@ -84,14 +86,14 @@ func state_normal(delta: float) -> void:
 		
 		if is_on_floor():
 			if abs(velocity.x) > 10 or move_input != 0:
-				animation_travel("run")
+				animation = "run"
 			else:
-				animation_travel("idle")
+				animation = "idle"
 		else:
 			if velocity.y < 0:
-				animation_travel("jump")
+				animation = "jump"
 			else:
-				animation_travel("fall")
+				animation = "fall"
 #	else:
 #		pass
 
@@ -160,14 +162,15 @@ func set_state(value):
 
 func fire() -> void:
 	bullet_spawner.fire()
+	fire_tween.rpc()
+
+
+@rpc("call_local")
+func fire_tween() -> void:
 	var tween = create_tween()
 	tween.tween_property(sprite_2d, "rotation_degrees", -45, 0.1).set_ease(Tween.EASE_OUT).set_trans(Tween.TRANS_ELASTIC)
-#	tween.set_parallel().tween_property(pivot, "scale", Vector2.ONE * 2, 0.1).set_ease(Tween.EASE_OUT).set_trans(Tween.TRANS_CIRC)
-	tween.set_parallel(false).tween_property(sprite_2d, "rotation_degrees", 0, 0.2).set_ease(Tween.EASE_IN).set_trans(Tween.TRANS_EXPO)
-#	tween.set_parallel().tween_property(pivot, "scale", Vector2.ONE, 0.2).set_ease(Tween.EASE_OUT).set_trans(Tween.TRANS_ELASTIC)
+	tween.parallel().tween_property(sprite_pivot, "scale", Vector2.ONE * 2, 0.1).set_ease(Tween.EASE_OUT).set_trans(Tween.TRANS_CIRC)
+	tween.tween_property(sprite_2d, "rotation_degrees", 0, 0.2).set_ease(Tween.EASE_IN).set_trans(Tween.TRANS_EXPO)
+	tween.parallel().tween_property(sprite_pivot, "scale", Vector2.ONE, 0.2).set_ease(Tween.EASE_OUT).set_trans(Tween.TRANS_ELASTIC)
 	
-func animation_travel(value: String) -> void:
-	playback.travel(value)
-	if animation != value:
-		animation = value
 	
