@@ -46,4 +46,4 @@ text = "Settings"
 
 [node name="Button4" type="Button" parent="PanelContainer/MarginContainer/VBoxContainer"]
 layout_mode = 2
-text = "Exit"
+text = "Quit"

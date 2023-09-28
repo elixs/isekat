@@ -8,7 +8,6 @@ enum State {
 
 var state: State = State.NORMAL:
 	set = set_state
-		
 
 var max_speed = 200
 var jump_speed = 200
@@ -34,6 +33,7 @@ var normal_gravity = 400
 @onready var animation_player = $AnimationPlayer
 @onready var animation_synchronizer = $AnimationSynchronizer
 @onready var sprite_pivot = $Pivot/SpritePivot
+@onready var pause_menu = $CanvasLayer/PauseMenu
 
 
 @export var max_jumps = 2
@@ -42,7 +42,6 @@ var jumps = 0
 func _ready() -> void:
 	animation_tree.active = true
 #	set_multiplayer_authority(name.to_int())
-
 
 func _physics_process(delta: float) -> void:
 	match state:
@@ -142,6 +141,7 @@ func setup(player_data: Game.PlayerData):
 	else:
 		animation_tree.active = false
 	animation_synchronizer.set_multiplayer_authority(player_data.id)
+	pause_menu.set_multiplayer_authority(player_data.id)
 	
 
 

@@ -2,6 +2,7 @@ extends Node
 
 signal players_updated
 signal player_updated(id)
+signal paused
 
 enum Role {
 	NONE,
@@ -89,6 +90,7 @@ func _ready():
 	thread = Thread.new()
 	thread.start(_upnp_setup.bind(SERVER_PORT))
 	print("start")
+	process_mode = Node.PROCESS_MODE_ALWAYS
 
 func _exit_tree():
 	# Wait for thread finish here to handle game exit while the thread is running.
@@ -111,3 +113,8 @@ class PlayerData:
 			"name": name,
 			"role": role
 		}
+
+@rpc("any_peer", "call_local", "reliable")
+func pause(value: bool) -> void:
+	get_tree().paused = value
+	paused.emit()
