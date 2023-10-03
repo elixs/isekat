@@ -6,7 +6,7 @@ enum State {
 	SKILL
 }
 
-var state: State = State.NORMAL:
+@export var state: State = State.NORMAL:
 	set = set_state
 
 var max_speed = 200
@@ -18,11 +18,11 @@ var normal_gravity = 400
 @export var animation = "idle":
 	set(value):
 		animation = value
-		if animation_player and animation_tree:
-			if animation_tree.active:
-				playback.travel(animation)
-			else:
-				animation_player.play(animation)
+#		if animation_player and animation_tree:
+#			if animation_tree.active:
+#				playback.travel(animation)
+#			else:
+#				animation_player.play(animation)
 
 @onready var animation_tree: AnimationTree = $AnimationTree
 @onready var playback: AnimationNodeStateMachinePlayback = animation_tree.get("parameters/playback")
@@ -31,7 +31,7 @@ var normal_gravity = 400
 @onready var bullet_spawner: MultiplayerSpawner = $BulletSpawner
 @onready var sprite_2d = $Pivot/SpritePivot/Sprite2D
 @onready var animation_player = $AnimationPlayer
-@onready var animation_synchronizer = $AnimationSynchronizer
+@onready var synchronizer = $Synchronizer
 @onready var sprite_pivot = $Pivot/SpritePivot
 @onready var pause_menu = $CanvasLayer/PauseMenu
 
@@ -85,14 +85,15 @@ func state_normal(delta: float) -> void:
 		
 		if is_on_floor():
 			if abs(velocity.x) > 10 or move_input != 0:
-				animation = "run"
+				playback.travel("run")
 			else:
-				animation = "idle"
+				playback.travel("idle")
+				
 		else:
 			if velocity.y < 0:
-				animation = "jump"
+				playback.travel("jump")
 			else:
-				animation = "fall"
+				playback.travel("fall")
 #	else:
 #		pass
 
@@ -128,21 +129,22 @@ func jump():
 	velocity.y = -jump_speed
 
 
-func setup(player_data: Game.PlayerData):
+func setup(player_data: Statics.PlayerData):
 	
 	set_multiplayer_authority(player_data.id, false)
 	name = str(player_data.id)
 	Debug.dprint(player_data.name, 30)
 	Debug.dprint(player_data.role, 30)
-#	if player_data.role == Game.Role.ROLE_B:
+#	if player_data.role == Statics.Role.ROLE_B:
 #		modulate = Color.DARK_BLUE
 	if multiplayer.get_unique_id() == player_data.id:
 		camera_2d.enabled = true
 	else:
 		animation_tree.active = false
-	animation_synchronizer.set_multiplayer_authority(player_data.id)
+	synchronizer.set_multiplayer_authority(player_data.id)
 	pause_menu.set_multiplayer_authority(player_data.id)
-	
+	if is_multiplayer_authority():
+		animation_tree.animation_started.connect(_on_animation_started)
 
 
 
@@ -174,3 +176,10 @@ func fire_tween() -> void:
 	tween.parallel().tween_property(sprite_pivot, "scale", Vector2.ONE, 0.2).set_ease(Tween.EASE_OUT).set_trans(Tween.TRANS_ELASTIC)
 	
 	
+func _on_animation_started(anim_name: StringName) -> void:
+	Debug.dprint(anim_name)
+	send_animation.rpc(anim_name)
+
+@rpc("reliable")
+func send_animation(anim_name: StringName) -> void:
+	animation_player.play(anim_name)

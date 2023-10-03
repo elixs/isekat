@@ -14,10 +14,10 @@ func _ready() -> void:
 	for i in Game.players.size():
 		var player_data = Game.players[i]
 		var player
-		if player_data.role == Game.Role.ROLE_A:
+		if player_data.role == Statics.Role.ROLE_A:
 			if player_a_scene:
 				player = player_a_scene.instantiate()
-		elif player_data.role == Game.Role.ROLE_B:
+		elif player_data.role == Statics.Role.ROLE_B:
 			if player_b_scene:
 				player = player_b_scene.instantiate()
 

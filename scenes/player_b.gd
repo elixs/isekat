@@ -15,5 +15,5 @@ func state_skill(delta: float) -> void:
 		
 		if Input.is_action_just_pressed("skill"):
 			set_state(Player.State.NORMAL)
-		send_info(global_position, velocity)
+		send_info.rpc(global_position, velocity)
 	move_and_slide()

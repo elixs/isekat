@@ -1,4 +1,4 @@
-[gd_scene load_steps=5 format=3 uid="uid://crxexi5ytbfgm"]
+[gd_scene load_steps=9 format=3 uid="uid://crxexi5ytbfgm"]
 
 [ext_resource type="Script" path="res://scenes/bullet.gd" id="1_nfxg7"]
 [ext_resource type="Texture2D" uid="uid://cl3r47rv0j1p8" path="res://assets/sprites/Meow Knight/Meow_Knight-Attack_3.png" id="1_sxl0w"]
@@ -16,6 +16,36 @@ properties/1/spawn = true
 properties/1/sync = false
 properties/1/watch = true
 
+[sub_resource type="CanvasItemMaterial" id="CanvasItemMaterial_qs2mf"]
+particles_animation = true
+particles_anim_h_frames = 4
+particles_anim_v_frames = 1
+particles_anim_loop = false
+
+[sub_resource type="Gradient" id="Gradient_8xqqo"]
+offsets = PackedFloat32Array(0.67907, 1)
+colors = PackedColorArray(1, 1, 1, 1, 1, 1, 1, 0)
+
+[sub_resource type="GradientTexture1D" id="GradientTexture1D_iawa7"]
+gradient = SubResource("Gradient_8xqqo")
+
+[sub_resource type="ParticleProcessMaterial" id="ParticleProcessMaterial_1gunr"]
+emission_shape = 3
+emission_box_extents = Vector3(1, 2, 1)
+particle_flag_disable_z = true
+direction = Vector3(-1, 0, 0)
+spread = 10.0
+gravity = Vector3(0, 0, 0)
+initial_velocity_min = 50.0
+initial_velocity_max = 100.0
+angular_velocity_min = -90.0
+angular_velocity_max = 90.0
+orbit_velocity_min = 0.0
+orbit_velocity_max = 0.0
+scale_min = 0.2
+scale_max = 0.2
+color_ramp = SubResource("GradientTexture1D_iawa7")
+
 [node name="Bullet" type="Area2D"]
 script = ExtResource("1_nfxg7")
 
@@ -32,3 +62,11 @@ region_rect = Rect2(8, 24, 24, 16)
 
 [node name="MultiplayerSynchronizer" type="MultiplayerSynchronizer" parent="."]
 replication_config = SubResource("SceneReplicationConfig_m5u0w")
+
+[node name="GPUParticles2D" type="GPUParticles2D" parent="."]
+material = SubResource("CanvasItemMaterial_qs2mf")
+position = Vector2(-4, -3)
+amount = 100
+process_material = SubResource("ParticleProcessMaterial_1gunr")
+texture = ExtResource("1_sxl0w")
+lifetime = 0.5

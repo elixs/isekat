@@ -41,6 +41,11 @@ var status = { 1 : false }
 var _menu_stack: Array[Control] = []
 
 func _ready():
+	
+#	if Game.multiplayer_test:
+#
+#		return
+	
 	multiplayer.connected_to_server.connect(_on_connected_to_server)
 	multiplayer.connection_failed.connect(_on_connection_failed)
 	multiplayer.peer_connected.connect(_on_peer_connected)
@@ -58,8 +63,8 @@ func _ready():
 	back_join.pressed.connect(_back_menu)
 	back_ready.pressed.connect(_back_menu)
 	
-	role_a.pressed.connect(func(): Game.set_current_player_role(Game.Role.ROLE_A))
-	role_b.pressed.connect(func(): Game.set_current_player_role(Game.Role.ROLE_B))
+	role_a.pressed.connect(func(): Game.set_current_player_role(Statics.Role.ROLE_A))
+	role_b.pressed.connect(func(): Game.set_current_player_role(Statics.Role.ROLE_B))
 	
 	ready_toggle.pressed.connect(_on_ready_toggled)
 	
@@ -74,7 +79,6 @@ func _ready():
  else "")
 	
 	Game.upnp_completed.connect(_on_upnp_completed)
-
 
 func _process(delta: float) -> void:
 	if !start_timer.is_stopped():
@@ -99,7 +103,7 @@ func _on_host_pressed() -> void:
 	
 	multiplayer.multiplayer_peer = peer
 	
-	var player = Game.PlayerData.new(multiplayer.get_unique_id(), user.text)
+	var player = Statics.PlayerData.new(multiplayer.get_unique_id(), user.text)
 	_add_player(player)
 	
 	_go_to_menu(ready_menu)
@@ -118,7 +122,7 @@ func _on_confirm_join_pressed() -> void:
 	
 	multiplayer.multiplayer_peer = peer
 	
-	var player = Game.PlayerData.new(multiplayer.get_unique_id(), user.text)
+	var player = Statics.PlayerData.new(multiplayer.get_unique_id(), user.text)
 	_add_player(player)
 	
 	_go_to_menu(ready_menu)
@@ -158,7 +162,7 @@ func _on_server_disconnected() -> void:
 	Debug.dprint("server_disconnected")
 
 
-func _add_player(player: Game.PlayerData) -> void:
+func _add_player(player: Statics.PlayerData) -> void:
 	Game.add_player(player)
 	
 	var lobby_player = lobby_player_scene.instantiate() as UILobbyPlayer
@@ -178,7 +182,7 @@ func _remove_player(id: int):
 
 @rpc("any_peer", "reliable")
 func send_info(info_dict: Dictionary) -> void:
-	var player = Game.PlayerData.new(info_dict.id, info_dict.name, info_dict.role)
+	var player = Statics.PlayerData.new(info_dict.id, info_dict.name, info_dict.role)
 	_add_player(player)
 
 
@@ -235,9 +239,9 @@ func start_game() -> void:
 func _check_ready() -> void:
 	var roles = []
 	for player in Game.players:
-		if not player.role in roles and player.role != Game.Role.NONE:
+		if not player.role in roles and player.role != Statics.Role.NONE:
 			roles.push_back(player.role)
-	ready_toggle.disabled = roles.size() != Game.Role.size() - 1
+	ready_toggle.disabled = roles.size() != Statics.Role.size() - 1
 
 
 func _disconnect():
