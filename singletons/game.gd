@@ -9,7 +9,7 @@ signal paused
 # [ {id: int, name: string, rol: Rol} ]
 var players: Array[Statics.PlayerData] = []
 
-# @export var test_players: Array[PlayerDataResource] = []
+@export var test_players: Array[PlayerDataResource] = []
 
 var roles := {}
 
@@ -90,15 +90,15 @@ func _ready():
 	print("start")
 	process_mode = Node.PROCESS_MODE_ALWAYS
 	
-#	if multiplayer_test:
-#		for player in test_players:
-#			players.push_back(
-#				PlayerData.new(
-#					player.id,
-#					player.name,
-#					player.role as Role
-#				)
-#			)
+	if multiplayer_test:
+		for player in test_players:
+			players.push_back(
+				Statics.PlayerData.new(
+					player.id,
+					player.name,
+					player.role
+				)
+			)
 
 func _exit_tree():
 	# Wait for thread finish here to handle game exit while the thread is running.

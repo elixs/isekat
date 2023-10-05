@@ -1,6 +1,21 @@
-[gd_scene load_steps=2 format=3 uid="uid://dpvrf8wx8icdx"]
+[gd_scene load_steps=5 format=3 uid="uid://dpvrf8wx8icdx"]
 
 [ext_resource type="Script" path="res://singletons/game.gd" id="1_ciee8"]
+[ext_resource type="Script" path="res://scripts/player_data_resource.gd" id="2_hvdm2"]
+
+[sub_resource type="Resource" id="Resource_tkcv7"]
+script = ExtResource("2_hvdm2")
+id = 1
+name = "player_a"
+role = 1
+
+[sub_resource type="Resource" id="Resource_jemhm"]
+script = ExtResource("2_hvdm2")
+id = 0
+name = "player_b"
+role = 2
 
 [node name="Game" type="Node"]
 script = ExtResource("1_ciee8")
+multiplayer_test = true
+test_players = Array[ExtResource("2_hvdm2")]([SubResource("Resource_tkcv7"), SubResource("Resource_jemhm")])

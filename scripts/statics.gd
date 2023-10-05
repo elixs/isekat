@@ -1,6 +1,9 @@
 class_name Statics
 extends Node
 
+const MAX_PLAYERS = 2
+const PORT = 5409
+
 enum Role {
 	NONE,
 	ROLE_A,

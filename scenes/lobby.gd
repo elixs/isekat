@@ -1,9 +1,5 @@
 extends MarginContainer
 
-
-const MAX_PLAYERS = 2
-const PORT = 5409
-
 @onready var user = %User
 @onready var host = %Host
 @onready var join = %Join
@@ -42,9 +38,9 @@ var _menu_stack: Array[Control] = []
 
 func _ready():
 	
-#	if Game.multiplayer_test:
-#
-#		return
+	if Game.multiplayer_test:
+		get_tree().change_scene_to_file("res://scenes/lobby_test.tscn")
+		return
 	
 	multiplayer.connected_to_server.connect(_on_connected_to_server)
 	multiplayer.connection_failed.connect(_on_connection_failed)
@@ -88,15 +84,15 @@ func _process(delta: float) -> void:
 func _on_upnp_completed(status) -> void:
 	print(status)
 	if status == OK:
-		Debug.dprint("Port Opened", 5)
+		Debug.dprint("Statics.PORT Opened", 5)
 	else:
-		Debug.dprint("Port Error", 5)
+		Debug.dprint("Statics.PORT Error", 5)
 
 
 func _on_host_pressed() -> void:
 	var peer = ENetMultiplayerPeer.new()
 	
-	var err = peer.create_server(PORT, MAX_PLAYERS)
+	var err = peer.create_server(Statics.PORT, Statics.MAX_PLAYERS)
 	if err:
 		Debug.dprint("Host Error: %d" %err)
 		return
@@ -115,9 +111,9 @@ func _on_join_pressed() -> void:
 
 func _on_confirm_join_pressed() -> void:
 	var peer = ENetMultiplayerPeer.new()
-	var err = peer.create_client(ip.text, PORT)
+	var err = peer.create_client(ip.text, Statics.PORT)
 	if err:
-		Debug.dprint("Host Error: %d" %err)
+		Debug.dprint("Join Error: %d" %err)
 		return
 	
 	multiplayer.multiplayer_peer = peer
