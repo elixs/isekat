@@ -165,7 +165,10 @@ layer_1/tile_data = PackedInt32Array(262150, 1, 65536, 327683, 1, 65536)
 position = Vector2(39, 125)
 
 [node name="Marker2D2" type="Marker2D" parent="Spawn"]
-position = Vector2(542, 125)
+position = Vector2(293, 125)
+
+[node name="Marker2D3" type="Marker2D" parent="Spawn"]
+position = Vector2(582, 131)
 
 [node name="Enemy" parent="." instance=ExtResource("7_3ebdw")]
 position = Vector2(75, 116)
