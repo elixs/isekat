@@ -1,0 +1,9 @@
+[gd_scene load_steps=2 format=3 uid="uid://cmscfblohfkf8"]
+
+[ext_resource type="Script" path="res://scenes/abilities/hook.gd" id="2_kbcd1"]
+
+[node name="hook" type="RayCast2D"]
+target_position = Vector2(150, 0)
+script = ExtResource("2_kbcd1")
+
+[node name="Line2D" type="Line2D" parent="."]

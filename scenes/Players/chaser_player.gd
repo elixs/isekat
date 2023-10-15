@@ -1,6 +1,15 @@
 class_name ChaserPlayer
 extends CharacterBody2D
 
+signal off_the_hook
+signal swinging_pos(pos)
+
+@onready var collision_shape = $CollisionShape2D
+@onready var animation_player = $AnimationPlayer
+@onready var attack_collision = $Pivot/AttackArea/AttackCollision
+
+
+
 # WALKING #
 @export var max_speed : float = 200
 @export var acceleration : float = 5000
@@ -25,10 +34,16 @@ extends CharacterBody2D
 @onready var fall_gravity : float = ((-2.0 * jump_height) / pow(jump_time_to_descent, 2)) * -1
 
 var is_flying : bool = false
+var hooked : bool = false
+var hooked_pos : Vector2
+var colliding_with : int = 1
 
 func _physics_process(delta: float) -> void:
+
+	if hooked:
+		swinging_pos.emit(global_position)
 	
-	if not is_on_floor():
+	if not is_on_floor() and not hooked:
 		velocity.y += get_gravity() * delta
 	else:
 		is_flying = false;
@@ -36,20 +51,31 @@ func _physics_process(delta: float) -> void:
 	if is_multiplayer_authority():
 		var move_input = Input.get_axis("move_left", "move_right")
 		
-		if Input.is_action_pressed("jump"):
+		if Input.is_action_pressed("attack"):
+			animation_player.play("attack")
+			attack_collision.disabled = false
+		
+		if Input.is_action_pressed("jump") and not hooked:
 			#jump.rpc() jump unabled for the moment
 #			jump()
 			velocity.y = move_toward(velocity.y, -max_fly_up_speed, fly_acceleration_up * delta)
 			is_flying = true;
 		
-		if is_flying:
+		if is_flying and not hooked:
 			velocity.x = move_toward(velocity.x, max_fly_side_speed * move_input, fly_acceleration_side * delta)
+		elif hooked:
+			velocity = (hooked_pos - global_position).normalized() * Vector2(150, 150)
 		else:
 			velocity.x = move_toward(velocity.x, max_speed * move_input, acceleration * delta)
 		
 		send_info.rpc(global_position, velocity)
 	
-	for index in range(get_slide_collision_count()):
+	if colliding_with < get_slide_collision_count():
+		hooked = false
+		off_the_hook.emit()
+	
+	colliding_with = get_slide_collision_count()
+	for index in range(colliding_with):
 			var collision = get_slide_collision(index)
 			var collider = collision.get_collider()
 			if (collider != null):
@@ -60,6 +86,7 @@ func _physics_process(delta: float) -> void:
 						
 				
 	move_and_slide()
+	
 
 	if velocity.x != 0:
 		pivot.scale.x = sign(velocity.x)
@@ -72,7 +99,6 @@ func get_gravity() -> float:
 func send_info(pos: Vector2, vel: Vector2) -> void:
 	global_position = lerp(global_position, pos, 0.5)
 	velocity = lerp(velocity, vel, 0.5)
-
 
 @rpc("call_local", "reliable")
 func jump():
@@ -90,3 +116,14 @@ func setup(player_data: Game.PlayerData):
 func test():
 #	if is_multiplayer_authority():
 	Debug.dprint("test - player: %s" % name, 30)
+
+
+func _on_hook_hooked(hooked_position):
+	hooked_pos = hooked_position
+	hooked = true
+	# await get_tree().create_timer(0.2).timeout
+
+
+func _on_animation_player_animation_finished(anim_name):
+	animation_player.play("idle")
+	attack_collision.disabled = true
