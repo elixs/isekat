@@ -48,12 +48,11 @@ func _physics_process(delta: float) -> void:
 	else:
 		is_flying = false;
 	
+	if Input.is_action_pressed("attack"):
+			start_attack.rpc()
+	
 	if is_multiplayer_authority():
 		var move_input = Input.get_axis("move_left", "move_right")
-		
-		if Input.is_action_pressed("attack"):
-			animation_player.play("attack")
-			attack_collision.disabled = false
 		
 		if Input.is_action_pressed("jump") and not hooked:
 			#jump.rpc() jump unabled for the moment
@@ -122,8 +121,22 @@ func _on_hook_hooked(hooked_position):
 	hooked_pos = hooked_position
 	hooked = true
 	# await get_tree().create_timer(0.2).timeout
-
-
+	
+	
 func _on_animation_player_animation_finished(anim_name):
+	if not is_multiplayer_authority():
+		return
+	end_attack.rpc()
+
+@rpc("call_local")
+func start_attack():
+
+	animation_player.play("attack")
+	attack_collision.disabled = false
+
+@rpc("call_local")
+func end_attack():
+
 	animation_player.play("idle")
 	attack_collision.disabled = true
+

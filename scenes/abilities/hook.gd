@@ -17,25 +17,40 @@ func _input(event):
 
 
 func check_collision():
+	if not is_multiplayer_authority():
+		return
 	look_at(get_global_mouse_position())
 	var collision_point
 	force_raycast_update()
 	if is_colliding():
 		if get_collider() is RunnerPlayer:
 			return
-		line_2d.clear_points()
-		line_2d.add_point(global_position)
 		collision_point = get_collision_point()
-		line_2d.add_point(collision_point)
+		draw.rpc(global_position, collision_point)
 		end_point = collision_point
 		hooked.emit(collision_point)
 		
 
+@rpc("call_local")
+func draw(pos1, pos2):
+	line_2d.clear_points()
+	line_2d.add_point(pos1)
+	line_2d.add_point(pos2)
 
+@rpc("call_local")
+func clear():
+	line_2d.clear_points()
+
+@rpc("call_local")	
+func update_point(pos):
+	line_2d.set_point_position(0, pos)
 
 func _on_chaser_off_the_hook():
-	line_2d.clear_points() # Replace with function body.
-
+	if not is_multiplayer_authority():
+		return
+	clear.rpc()
 
 func _on_chaser_swinging_pos(pos):
-	line_2d.set_point_position(0, pos)
+	if not is_multiplayer_authority():
+		return
+	update_point.rpc(pos)
