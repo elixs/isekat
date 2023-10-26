@@ -9,6 +9,7 @@ height = 24.0
 
 [node name="Player" instance=ExtResource("1_8buvs")]
 script = ExtResource("2_x8tx0")
+max_speed = 75
 max_jumps = 1
 
 [node name="Sprite2D" parent="Pivot/SpritePivot" index="0"]
