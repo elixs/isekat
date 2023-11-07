@@ -18,11 +18,9 @@ var normal_gravity = 400
 @export var animation = "idle":
 	set(value):
 		animation = value
-#		if animation_player and animation_tree:
-#			if animation_tree.active:
-#				playback.travel(animation)
-#			else:
-#				animation_player.play(animation)
+		if not is_multiplayer_authority() and playback:
+			Debug.dprint(animation)
+			playback.start(animation)
 
 @onready var animation_tree: AnimationTree = $AnimationTree
 @onready var playback: AnimationNodeStateMachinePlayback = animation_tree.get("parameters/playback")
@@ -49,6 +47,9 @@ func _physics_process(delta: float) -> void:
 			state_normal(delta)
 		State.SKILL:
 			state_skill(delta)
+	
+	if is_multiplayer_authority():
+		animation = playback.get_current_node()
 
 
 func state_normal(delta: float) -> void:
@@ -137,14 +138,10 @@ func setup(player_data: Statics.PlayerData):
 	Debug.dprint(player_data.role, 30)
 #	if player_data.role == Statics.Role.ROLE_B:
 #		modulate = Color.DARK_BLUE
-	if multiplayer.get_unique_id() == player_data.id:
+	if is_multiplayer_authority():
 		camera_2d.enabled = true
-	else:
-		animation_tree.active = false
 	synchronizer.set_multiplayer_authority(player_data.id)
 	pause_menu.set_multiplayer_authority(player_data.id)
-	if is_multiplayer_authority():
-		animation_tree.animation_started.connect(_on_animation_started)
 
 
 
@@ -175,11 +172,3 @@ func fire_tween() -> void:
 	tween.tween_property(sprite_2d, "rotation_degrees", 0, 0.2).set_ease(Tween.EASE_IN).set_trans(Tween.TRANS_EXPO)
 	tween.parallel().tween_property(sprite_pivot, "scale", Vector2.ONE, 0.2).set_ease(Tween.EASE_OUT).set_trans(Tween.TRANS_ELASTIC)
 	
-	
-func _on_animation_started(anim_name: StringName) -> void:
-	Debug.dprint(anim_name)
-	send_animation.rpc(anim_name)
-
-@rpc("reliable")
-func send_animation(anim_name: StringName) -> void:
-	animation_player.play(anim_name)
