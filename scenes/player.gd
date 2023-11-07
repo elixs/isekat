@@ -10,7 +10,7 @@ enum State {
 	set = set_state
 
 @export var max_speed = 100
-var jump_speed = 200
+@export var jump_speed = 200
 var acceleration = 1000
 var gravity = 400
 var normal_gravity = 400

@@ -9,7 +9,8 @@ height = 24.0
 
 [node name="Player" instance=ExtResource("1_8buvs")]
 script = ExtResource("2_x8tx0")
-max_speed = 75
+max_speed = 50
+jump_speed = 100
 max_jumps = 1
 
 [node name="Sprite2D" parent="Pivot/SpritePivot" index="0"]
@@ -17,3 +18,6 @@ scale = Vector2(2, 2)
 
 [node name="CollisionShape2D" parent="." index="1"]
 shape = SubResource("CapsuleShape2D_b1mol")
+
+[node name="Camera2D" parent="." index="4"]
+step_duration = 0.01

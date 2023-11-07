@@ -1,6 +1,13 @@
 extends Player
 
 
+var was_on_floor = false
+
+func _ready():
+	super._ready()
+	animation_player.speed_scale = 0.01
+
+
 func skill():
 	if state == Player.State.NORMAL:
 		state = Player.State.SKILL
@@ -17,3 +24,10 @@ func state_skill(delta: float) -> void:
 			set_state(Player.State.NORMAL)
 		send_info.rpc(global_position, velocity)
 	move_and_slide()
+
+
+func _physics_process(delta):
+	super._physics_process(delta)
+	if is_on_floor() and not was_on_floor:
+		camera_2d.shake()
+	was_on_floor = is_on_floor()

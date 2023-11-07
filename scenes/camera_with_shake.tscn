@@ -1,0 +1,6 @@
+[gd_scene load_steps=2 format=3 uid="uid://lai04gpicowp"]
+
+[ext_resource type="Script" path="res://scenes/camera_with_shake.gd" id="1_1wdoj"]
+
+[node name="CameraWithShake" type="Camera2D"]
+script = ExtResource("1_1wdoj")

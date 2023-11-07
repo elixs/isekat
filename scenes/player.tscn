@@ -1,10 +1,11 @@
-[gd_scene load_steps=39 format=3 uid="uid://b3mhsy021dqog"]
+[gd_scene load_steps=40 format=3 uid="uid://b3mhsy021dqog"]
 
 [ext_resource type="Script" path="res://scenes/player.gd" id="1_xuxkm"]
 [ext_resource type="Texture2D" uid="uid://ck5jauofqrn5d" path="res://assets/sprites/Meow Knight/Meow_Knight-Idle.png" id="2_jha4h"]
 [ext_resource type="PackedScene" uid="uid://crxexi5ytbfgm" path="res://scenes/bullet.tscn" id="2_t6y8b"]
 [ext_resource type="Texture2D" uid="uid://d0grllhygjom4" path="res://assets/sprites/Meow Knight/Meow_Knight-Run.png" id="3_h78rm"]
 [ext_resource type="Texture2D" uid="uid://q7fxpeqcfcl5" path="res://assets/sprites/Meow Knight/Meow_Knight-Jump.png" id="4_qxnuc"]
+[ext_resource type="Script" path="res://scenes/camera_with_shake.gd" id="5_4twp6"]
 [ext_resource type="Script" path="res://scenes/bullet_spawner.gd" id="6_a5i1f"]
 [ext_resource type="PackedScene" uid="uid://bhao5w6vhwq66" path="res://scenes/ui/pause_menu.tscn" id="7_r713j"]
 
@@ -471,6 +472,7 @@ enabled = false
 zoom = Vector2(1.25, 1.25)
 process_callback = 0
 position_smoothing_enabled = true
+script = ExtResource("5_4twp6")
 
 [node name="BulletSpawner" type="MultiplayerSpawner" parent="." node_paths=PackedStringArray("bullet_spawn")]
 spawn_path = NodePath(".")
