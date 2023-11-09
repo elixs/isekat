@@ -2,10 +2,12 @@ extends Player
 
 
 var was_on_floor = false
+@onready var shake_area = $ShakeArea
+
 
 func _ready():
 	super._ready()
-	animation_player.speed_scale = 0.01
+	animation_tree.set("parameters/TimeScale/scale", 0.75)
 
 
 func skill():
@@ -29,5 +31,14 @@ func state_skill(delta: float) -> void:
 func _physics_process(delta):
 	super._physics_process(delta)
 	if is_on_floor() and not was_on_floor:
-		camera_2d.shake()
+		_shake()
 	was_on_floor = is_on_floor()
+
+
+func _shake() -> void:
+	camera_2d.shake()
+	for body in shake_area.get_overlapping_bodies():
+		var player = body as Player
+		if player and player != self:
+			if player.is_on_floor():
+				player.camera_2d.shake((1 - global_position.distance_to(body.global_position) / 128)*5)

@@ -1,4 +1,4 @@
-[gd_scene load_steps=40 format=3 uid="uid://b3mhsy021dqog"]
+[gd_scene load_steps=23 format=3 uid="uid://b3mhsy021dqog"]
 
 [ext_resource type="Script" path="res://scenes/player.gd" id="1_xuxkm"]
 [ext_resource type="Texture2D" uid="uid://ck5jauofqrn5d" path="res://assets/sprites/Meow Knight/Meow_Knight-Idle.png" id="2_jha4h"]
@@ -6,6 +6,7 @@
 [ext_resource type="Texture2D" uid="uid://d0grllhygjom4" path="res://assets/sprites/Meow Knight/Meow_Knight-Run.png" id="3_h78rm"]
 [ext_resource type="Texture2D" uid="uid://q7fxpeqcfcl5" path="res://assets/sprites/Meow Knight/Meow_Knight-Jump.png" id="4_qxnuc"]
 [ext_resource type="Script" path="res://scenes/camera_with_shake.gd" id="5_4twp6"]
+[ext_resource type="AnimationNodeStateMachine" uid="uid://dneno5a35l7qa" path="res://resources/player_anim_state_machine.tres" id="5_mc07i"]
 [ext_resource type="Script" path="res://scenes/bullet_spawner.gd" id="6_a5i1f"]
 [ext_resource type="PackedScene" uid="uid://bhao5w6vhwq66" path="res://scenes/ui/pause_menu.tscn" id="7_r713j"]
 
@@ -360,72 +361,16 @@ _data = {
 "run": SubResource("Animation_gv6kf")
 }
 
-[sub_resource type="AnimationNodeAnimation" id="AnimationNodeAnimation_xw7v7"]
-animation = &"fall"
+[sub_resource type="AnimationNodeTimeScale" id="AnimationNodeTimeScale_8sruq"]
 
-[sub_resource type="AnimationNodeAnimation" id="AnimationNodeAnimation_astek"]
-animation = &"idle"
-
-[sub_resource type="AnimationNodeAnimation" id="AnimationNodeAnimation_h2qqg"]
-animation = &"jump"
-
-[sub_resource type="AnimationNodeAnimation" id="AnimationNodeAnimation_73t03"]
-animation = &"jump_fall"
-
-[sub_resource type="AnimationNodeAnimation" id="AnimationNodeAnimation_s1jnd"]
-animation = &"jump_start"
-
-[sub_resource type="AnimationNodeAnimation" id="AnimationNodeAnimation_nngh5"]
-animation = &"land"
-
-[sub_resource type="AnimationNodeAnimation" id="AnimationNodeAnimation_2qveh"]
-animation = &"run"
-
-[sub_resource type="AnimationNodeStateMachineTransition" id="AnimationNodeStateMachineTransition_1gsvm"]
-advance_mode = 2
-
-[sub_resource type="AnimationNodeStateMachineTransition" id="AnimationNodeStateMachineTransition_q8cnf"]
-
-[sub_resource type="AnimationNodeStateMachineTransition" id="AnimationNodeStateMachineTransition_5jn7n"]
-
-[sub_resource type="AnimationNodeStateMachineTransition" id="AnimationNodeStateMachineTransition_q8gwb"]
-
-[sub_resource type="AnimationNodeStateMachineTransition" id="AnimationNodeStateMachineTransition_tg7m8"]
-switch_mode = 2
-
-[sub_resource type="AnimationNodeStateMachineTransition" id="AnimationNodeStateMachineTransition_q3xyw"]
-
-[sub_resource type="AnimationNodeStateMachineTransition" id="AnimationNodeStateMachineTransition_lsb5c"]
-switch_mode = 2
-
-[sub_resource type="AnimationNodeStateMachineTransition" id="AnimationNodeStateMachineTransition_nwsjl"]
-
-[sub_resource type="AnimationNodeStateMachineTransition" id="AnimationNodeStateMachineTransition_gnmcq"]
-switch_mode = 2
-
-[sub_resource type="AnimationNodeStateMachineTransition" id="AnimationNodeStateMachineTransition_de2n2"]
-
-[sub_resource type="AnimationNodeStateMachineTransition" id="AnimationNodeStateMachineTransition_27wto"]
-
-[sub_resource type="AnimationNodeStateMachineTransition" id="AnimationNodeStateMachineTransition_tl8pt"]
-
-[sub_resource type="AnimationNodeStateMachine" id="AnimationNodeStateMachine_geec5"]
-states/fall/node = SubResource("AnimationNodeAnimation_xw7v7")
-states/fall/position = Vector2(760.714, -56.2907)
-states/idle/node = SubResource("AnimationNodeAnimation_astek")
-states/idle/position = Vector2(398.429, 100.408)
-states/jump/node = SubResource("AnimationNodeAnimation_h2qqg")
-states/jump/position = Vector2(428.286, -40.8571)
-states/jump_fall/node = SubResource("AnimationNodeAnimation_73t03")
-states/jump_fall/position = Vector2(604.51, -56.9213)
-states/jump_start/node = SubResource("AnimationNodeAnimation_s1jnd")
-states/jump_start/position = Vector2(244.714, -41.4694)
-states/land/node = SubResource("AnimationNodeAnimation_nngh5")
-states/land/position = Vector2(893.571, -55.8861)
-states/run/node = SubResource("AnimationNodeAnimation_2qveh")
-states/run/position = Vector2(604.143, 100)
-transitions = ["Start", "idle", SubResource("AnimationNodeStateMachineTransition_1gsvm"), "idle", "run", SubResource("AnimationNodeStateMachineTransition_q8cnf"), "run", "idle", SubResource("AnimationNodeStateMachineTransition_5jn7n"), "idle", "jump_start", SubResource("AnimationNodeStateMachineTransition_q8gwb"), "jump_start", "jump", SubResource("AnimationNodeStateMachineTransition_tg7m8"), "jump", "jump_fall", SubResource("AnimationNodeStateMachineTransition_q3xyw"), "jump_fall", "fall", SubResource("AnimationNodeStateMachineTransition_lsb5c"), "fall", "land", SubResource("AnimationNodeStateMachineTransition_nwsjl"), "land", "idle", SubResource("AnimationNodeStateMachineTransition_gnmcq"), "land", "run", SubResource("AnimationNodeStateMachineTransition_de2n2"), "idle", "fall", SubResource("AnimationNodeStateMachineTransition_27wto"), "run", "fall", SubResource("AnimationNodeStateMachineTransition_tl8pt")]
-graph_offset = Vector2(-159, -139)
+[sub_resource type="AnimationNodeBlendTree" id="AnimationNodeBlendTree_m2y0n"]
+graph_offset = Vector2(-686.69, -119)
+nodes/StateMachine/node = ExtResource("5_mc07i")
+nodes/StateMachine/position = Vector2(-359, 155)
+nodes/TimeScale/node = SubResource("AnimationNodeTimeScale_8sruq")
+nodes/TimeScale/position = Vector2(360, 100)
+nodes/output/position = Vector2(700, 140)
+node_connections = [&"output", 0, &"TimeScale", &"TimeScale", 0, &"StateMachine"]
 
 [sub_resource type="SceneReplicationConfig" id="SceneReplicationConfig_kpili"]
 properties/0/path = NodePath(".:animation")
@@ -464,8 +409,9 @@ libraries = {
 }
 
 [node name="AnimationTree" type="AnimationTree" parent="."]
-tree_root = SubResource("AnimationNodeStateMachine_geec5")
+tree_root = SubResource("AnimationNodeBlendTree_m2y0n")
 anim_player = NodePath("../AnimationPlayer")
+parameters/TimeScale/scale = 1.0
 
 [node name="Camera2D" type="Camera2D" parent="."]
 enabled = false

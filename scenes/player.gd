@@ -19,11 +19,10 @@ var normal_gravity = 400
 	set(value):
 		animation = value
 		if not is_multiplayer_authority() and playback:
-			Debug.dprint(animation)
 			playback.start(animation)
 
 @onready var animation_tree: AnimationTree = $AnimationTree
-@onready var playback: AnimationNodeStateMachinePlayback = animation_tree.get("parameters/playback")
+@onready var playback: AnimationNodeStateMachinePlayback = animation_tree.get("parameters/StateMachine/playback")
 @onready var pivot: Node2D = $Pivot
 @onready var camera_2d: Camera2D = $Camera2D
 @onready var bullet_spawner: MultiplayerSpawner = $BulletSpawner
@@ -53,9 +52,6 @@ func _physics_process(delta: float) -> void:
 
 
 func state_normal(delta: float) -> void:
-	
-#	Debug.dprint(velocity)
-	
 	if not is_on_floor():
 		velocity.y += gravity * delta
 	
@@ -172,3 +168,4 @@ func fire_tween() -> void:
 	tween.tween_property(sprite_2d, "rotation_degrees", 0, 0.2).set_ease(Tween.EASE_IN).set_trans(Tween.TRANS_EXPO)
 	tween.parallel().tween_property(sprite_pivot, "scale", Vector2.ONE, 0.2).set_ease(Tween.EASE_OUT).set_trans(Tween.TRANS_ELASTIC)
 	
+
