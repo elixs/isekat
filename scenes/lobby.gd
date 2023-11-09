@@ -36,12 +36,7 @@ var status = { 1 : false }
 
 var _menu_stack: Array[Control] = []
 
-func _ready():
-	
-	if Game.multiplayer_test:
-		get_tree().change_scene_to_file("res://scenes/lobby_test.tscn")
-		return
-	
+func _ready():	
 	multiplayer.connected_to_server.connect(_on_connected_to_server)
 	multiplayer.connection_failed.connect(_on_connection_failed)
 	multiplayer.peer_connected.connect(_on_peer_connected)

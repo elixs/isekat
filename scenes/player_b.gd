@@ -1,6 +1,8 @@
 extends Player
 
 
+
+
 var was_on_floor = false
 @onready var shake_area = $ShakeArea
 
@@ -36,6 +38,8 @@ func _physics_process(delta):
 
 
 func _shake() -> void:
+	Debug.dprint("asdfa")
+	stomp.emit()
 	camera_2d.shake()
 	for body in shake_area.get_overlapping_bodies():
 		var player = body as Player

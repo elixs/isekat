@@ -12,8 +12,10 @@ size = Vector2(256, 64)
 
 [node name="Player" instance=ExtResource("1_8buvs")]
 script = ExtResource("2_x8tx0")
+state = null
 max_speed = 25
 jump_speed = 100
+animation = null
 max_jumps = 1
 
 [node name="Sprite2D" parent="Pivot/SpritePivot" index="0"]

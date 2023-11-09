@@ -1,0 +1,69 @@
+[gd_scene load_steps=5 format=3 uid="uid://dsm2krdeygis2"]
+
+[ext_resource type="Script" path="res://scenes/ui/credits.gd" id="1_u6wku"]
+[ext_resource type="PackedScene" uid="uid://c1n3leuih025r" path="res://scenes/player_b.tscn" id="2_u8byo"]
+[ext_resource type="TileSet" uid="uid://dfr6cavbxjg5n" path="res://resources/tile_set.tres" id="3_am6j2"]
+[ext_resource type="Script" path="res://scenes/camera_with_shake.gd" id="4_8y0j2"]
+
+[node name="Credits" type="CanvasLayer"]
+script = ExtResource("1_u6wku")
+
+[node name="MarginContainer" type="MarginContainer" parent="."]
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+theme_override_constants/margin_top = 0
+theme_override_constants/margin_bottom = 32
+
+[node name="RichTextLabel" type="RichTextLabel" parent="MarginContainer"]
+layout_mode = 2
+bbcode_enabled = true
+text = "
+
+[font_size=24][center][rainbow][wave]Credits[/wave][/rainbow][/center][/font_size]
+a
+a
+a
+a
+a
+a
+a
+a
+a
+a
+a
+a
+a
+a
+a
+a
+
+a
+a
+a
+
+a
+a
+a
+a
+a
+b
+b
+b
+b
+"
+scroll_active = false
+
+[node name="TileMap" type="TileMap" parent="."]
+tile_set = ExtResource("3_am6j2")
+format = 2
+layer_0/tile_data = PackedInt32Array(524293, 65538, 1, 524294, 131074, 1, 589830, 65538, 3, 589829, 65538, 3, 589828, 65538, 3, 524292, 65538, 1, 458756, 131074, 0, 458757, 131074, 0, 458758, 131074, 0, 524295, 65538, 1, 589831, 65538, 3, 458759, 65538, 0, 524296, 65538, 1, 589832, 65538, 3, 458760, 65538, 0, 524297, 65538, 1, 589833, 131074, 3, 458761, 131074, 0, 524298, 65538, 1, 589834, 65538, 3, 458762, 131074, 0, 524299, 65538, 1, 589835, 131074, 3, 458763, 131074, 0, 524288, 65538, 1, 524289, 65538, 1, 589825, 65538, 3, 589824, 65538, 3, 655359, 2, 3, 589823, 2, 2, 524287, 2, 0, 458752, 131074, 0, 458753, 65538, 0, 524290, 65538, 1, 589826, 65538, 3, 458754, 65538, 0, 524291, 65538, 1, 589827, 65538, 3, 458755, 131074, 0, 524300, 65538, 1, 589836, 131074, 3, 458764, 131074, 0, 524301, 65538, 1, 589837, 131074, 3, 458765, 131074, 0, 524302, 65538, 1, 589838, 131074, 3, 458766, 65538, 0, 524303, 65538, 1, 589839, 131074, 3, 458767, 131074, 0, 524304, 196610, 1, 589840, 196610, 3, 458768, 196610, 0)
+
+[node name="Player" parent="." instance=ExtResource("2_u8byo")]
+position = Vector2(55, 104)
+
+[node name="CameraWithShake" type="Camera2D" parent="."]
+position = Vector2(128, 72)
+script = ExtResource("4_8y0j2")

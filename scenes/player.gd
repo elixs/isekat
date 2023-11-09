@@ -6,6 +6,8 @@ enum State {
 	SKILL
 }
 
+signal stomp
+
 @export var state: State = State.NORMAL:
 	set = set_state
 
