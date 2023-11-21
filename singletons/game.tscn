@@ -15,5 +15,4 @@ role = 2
 
 [node name="Game" type="Node"]
 script = ExtResource("1_ciee8")
-multiplayer_test = true
 test_players = Array[ExtResource("2_hvdm2")]([SubResource("Resource_tkcv7"), SubResource("Resource_jemhm")])

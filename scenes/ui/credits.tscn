@@ -1,60 +1,75 @@
-[gd_scene load_steps=5 format=3 uid="uid://dsm2krdeygis2"]
+[gd_scene load_steps=6 format=3 uid="uid://dsm2krdeygis2"]
 
 [ext_resource type="Script" path="res://scenes/ui/credits.gd" id="1_u6wku"]
+[ext_resource type="Script" path="res://scenes/ui/scrollable_text.gd" id="2_g0nrc"]
 [ext_resource type="PackedScene" uid="uid://c1n3leuih025r" path="res://scenes/player_b.tscn" id="2_u8byo"]
 [ext_resource type="TileSet" uid="uid://dfr6cavbxjg5n" path="res://resources/tile_set.tres" id="3_am6j2"]
 [ext_resource type="Script" path="res://scenes/camera_with_shake.gd" id="4_8y0j2"]
 
-[node name="Credits" type="CanvasLayer"]
+[node name="Credits" type="Node2D"]
 script = ExtResource("1_u6wku")
 
-[node name="MarginContainer" type="MarginContainer" parent="."]
+[node name="CanvasLayer" type="CanvasLayer" parent="."]
+layer = -1
+
+[node name="MarginContainer" type="MarginContainer" parent="CanvasLayer"]
 anchors_preset = 15
 anchor_right = 1.0
 anchor_bottom = 1.0
 grow_horizontal = 2
 grow_vertical = 2
+theme_override_constants/margin_left = 48
 theme_override_constants/margin_top = 0
+theme_override_constants/margin_right = 48
 theme_override_constants/margin_bottom = 32
 
-[node name="RichTextLabel" type="RichTextLabel" parent="MarginContainer"]
+[node name="ScrollableText" type="RichTextLabel" parent="CanvasLayer/MarginContainer"]
 layout_mode = 2
 bbcode_enabled = true
 text = "
 
-[font_size=24][center][rainbow][wave]Credits[/wave][/rainbow][/center][/font_size]
-a
-a
-a
-a
-a
-a
-a
-a
-a
-a
-a
-a
-a
-a
-a
-a
+[font_size=40][center][rainbow][wave]Credits[/wave][/rainbow][/center][/font_size]
 
-a
-a
-a
 
-a
-a
-a
-a
-a
-b
-b
-b
-b
+
+[font_size=28][center]Programming[/center][/font_size]
+
+Elías Zelada
+
+
+[font_size=28][center]Assets[/center][/font_size]
+
+[b]Meow Knight[/b]
+9e0.itch.io
+
+[b]Cosmic Lilac![/b]
+petricakegames.itch.io
+
+[b]Abaddon[/b]
+caffinate.itch.io
+
+
+
+
+[wave][font_size=30][center]Thanks for playing![/center][/font_size][/wave]
+
 "
 scroll_active = false
+script = ExtResource("2_g0nrc")
+
+[node name="Button" type="Button" parent="CanvasLayer"]
+anchors_preset = 3
+anchor_left = 1.0
+anchor_top = 1.0
+anchor_right = 1.0
+anchor_bottom = 1.0
+offset_left = -50.0
+offset_top = -54.0
+offset_right = -19.0
+offset_bottom = -38.0
+grow_horizontal = 0
+grow_vertical = 0
+text = "Continue"
 
 [node name="TileMap" type="TileMap" parent="."]
 tile_set = ExtResource("3_am6j2")

@@ -1,18 +1,19 @@
-extends CanvasLayer
+extends Node2D
 
-@onready var rich_text_label = $MarginContainer/RichTextLabel
-@onready var scroll_bar: VScrollBar = rich_text_label.get_v_scroll_bar()
 @onready var player: Player = $Player as Player
 @onready var camera_with_shake = $CameraWithShake
+@onready var scrollable_text = $CanvasLayer/MarginContainer/ScrollableText
+@onready var button = $CanvasLayer/Button
+
 
 func _ready():
-	scroll_bar.step = 0.01
-	set_process(false)
-	await get_tree().create_timer(3).timeout
-	set_process(true)
+	button.hide()
 	player.stomp.connect(func(): camera_with_shake.shake())
+	scrollable_text.scroll_completed.connect(_on_scroll_completed)
+	button.pressed.connect(func(): get_tree().change_scene_to_file("res://scenes/ui/main_menu.tscn"))
 
 
-
-func _process(delta):
-	scroll_bar.value += 0.1
+func _on_scroll_completed():
+	await get_tree().create_timer(3).timeout
+	button.show()
+	

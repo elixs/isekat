@@ -1,4 +1,4 @@
-[gd_scene load_steps=5 format=3 uid="uid://c1n3leuih025r"]
+[gd_scene load_steps=6 format=3 uid="uid://c1n3leuih025r"]
 
 [ext_resource type="PackedScene" uid="uid://b3mhsy021dqog" path="res://scenes/player.tscn" id="1_8buvs"]
 [ext_resource type="Script" path="res://scenes/player_b.gd" id="2_x8tx0"]
@@ -10,12 +10,13 @@ height = 24.0
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_5d28o"]
 size = Vector2(256, 64)
 
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_31lkm"]
+size = Vector2(12, 8)
+
 [node name="Player" instance=ExtResource("1_8buvs")]
 script = ExtResource("2_x8tx0")
-state = null
 max_speed = 25
 jump_speed = 100
-animation = null
 max_jumps = 1
 
 [node name="Sprite2D" parent="Pivot/SpritePivot" index="0"]
@@ -24,6 +25,9 @@ scale = Vector2(2, 2)
 [node name="CollisionShape2D" parent="." index="1"]
 shape = SubResource("CapsuleShape2D_b1mol")
 
+[node name="PauseMenu" parent="CanvasLayer" index="0"]
+visible = false
+
 [node name="ShakeArea" type="Area2D" parent="." index="8"]
 collision_layer = 2
 collision_mask = 2
@@ -31,3 +35,7 @@ collision_mask = 2
 [node name="CollisionShape2D" type="CollisionShape2D" parent="ShakeArea" index="0"]
 position = Vector2(0, 12)
 shape = SubResource("RectangleShape2D_5d28o")
+
+[node name="CollisionShape2D2" parent="Head" index="0"]
+position = Vector2(0, -16)
+shape = SubResource("RectangleShape2D_31lkm")

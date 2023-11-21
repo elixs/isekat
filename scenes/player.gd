@@ -33,6 +33,7 @@ var normal_gravity = 400
 @onready var synchronizer = $Synchronizer
 @onready var sprite_pivot = $Pivot/SpritePivot
 @onready var pause_menu = $CanvasLayer/PauseMenu
+@onready var head = $Head
 
 
 @export var max_jumps = 2
@@ -41,6 +42,7 @@ var jumps = 0
 func _ready() -> void:
 	animation_tree.active = true
 #	set_multiplayer_authority(name.to_int())
+	head.add_collision_exception_with(self)
 
 func _physics_process(delta: float) -> void:
 	match state:

@@ -1,5 +1,9 @@
 extends Player
 
+func _physics_process(delta):
+	super._physics_process(delta)
+
+
 func skill():
 	super.skill()
 	Debug.dprint("Player A Skill")

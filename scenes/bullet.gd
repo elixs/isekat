@@ -15,4 +15,5 @@ func _physics_process(delta: float) -> void:
 	position += transform.x * speed * delta
 
 func _on_body_entered(body: Node2D) -> void:
-	Debug.dprint(body.name)
+	pass
+	# Debug.dprint(body.name)
