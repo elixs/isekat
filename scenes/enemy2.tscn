@@ -1,0 +1,55 @@
+[gd_scene load_steps=6 format=3 uid="uid://ca0oh2wevvqny"]
+
+[ext_resource type="Script" path="res://scenes/enemy2.gd" id="1_c1l38"]
+[ext_resource type="Texture2D" uid="uid://d3jn2c70tcl7" path="res://assets/sprites/CosmicLilac_Tiles.png" id="2_ruo12"]
+
+[sub_resource type="CapsuleShape2D" id="CapsuleShape2D_rrq5p"]
+radius = 6.0
+height = 28.0
+
+[sub_resource type="SceneReplicationConfig" id="SceneReplicationConfig_bdsyy"]
+properties/0/path = NodePath(".:position")
+properties/0/spawn = true
+properties/0/sync = true
+properties/0/watch = false
+properties/1/path = NodePath(".:vel")
+properties/1/spawn = true
+properties/1/sync = true
+properties/1/watch = false
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_3i568"]
+size = Vector2(114, 68)
+
+[node name="Enemy2" type="CharacterBody2D"]
+script = ExtResource("1_c1l38")
+
+[node name="Pivot" type="Node2D" parent="."]
+
+[node name="Sprite2D" type="Sprite2D" parent="Pivot"]
+position = Vector2(0, -1)
+texture = ExtResource("2_ruo12")
+flip_h = true
+region_enabled = true
+region_rect = Rect2(192, 128, 16, 32)
+
+[node name="FloorRayCast" type="RayCast2D" parent="Pivot"]
+position = Vector2(8, 0)
+target_position = Vector2(0, 20)
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="."]
+position = Vector2(0, -1)
+shape = SubResource("CapsuleShape2D_rrq5p")
+
+[node name="MultiplayerSynchronizer" type="MultiplayerSynchronizer" parent="."]
+replication_config = SubResource("SceneReplicationConfig_bdsyy")
+
+[node name="ActionTimer" type="Timer" parent="."]
+one_shot = true
+autostart = true
+
+[node name="DetectionArea" type="Area2D" parent="."]
+collision_layer = 2
+collision_mask = 2
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="DetectionArea"]
+shape = SubResource("RectangleShape2D_3i568")

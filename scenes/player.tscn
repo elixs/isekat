@@ -437,6 +437,8 @@ replication_config = SubResource("SceneReplicationConfig_kpili")
 [node name="PauseMenu" parent="CanvasLayer" instance=ExtResource("7_r713j")]
 
 [node name="Head" type="CharacterBody2D" parent="."]
+collision_layer = 0
+collision_mask = 0
 
 [node name="CollisionShape2D2" type="CollisionShape2D" parent="Head"]
 position = Vector2(0, -6)
