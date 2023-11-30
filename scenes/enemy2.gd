@@ -55,7 +55,7 @@ func _physics_process(delta):
 
 
 func _action():
-	if randi() % 4:
+	if randi() % 3:
 		direction = 0
 	else:
 		# move

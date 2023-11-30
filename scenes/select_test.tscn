@@ -1,0 +1,55 @@
+[gd_scene load_steps=2 format=3 uid="uid://5430wlr06r8m"]
+
+[ext_resource type="PackedScene" uid="uid://bmrkwdv74myvg" path="res://scenes/ui/select_button.tscn" id="1_cymmv"]
+
+[node name="SelectTest" type="Control"]
+layout_mode = 3
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+
+[node name="OptionButton" type="OptionButton" parent="."]
+layout_mode = 0
+offset_right = 43.0
+offset_bottom = 20.0
+item_count = 2
+popup/item_0/text = "Option 1"
+popup/item_0/id = 0
+popup/item_1/text = "Option 2"
+popup/item_1/id = 1
+
+[node name="OptionButton2" type="OptionButton" parent="."]
+layout_mode = 1
+anchors_preset = 2
+anchor_top = 1.0
+anchor_bottom = 1.0
+offset_top = -20.0
+offset_right = 67.0
+grow_vertical = 0
+item_count = 2
+popup/item_0/text = "Option 1"
+popup/item_0/id = 0
+popup/item_1/text = "Option 2"
+popup/item_1/id = 1
+
+[node name="SelectButton" parent="." instance=ExtResource("1_cymmv")]
+layout_mode = 0
+offset_left = 5.0
+offset_top = 30.0
+offset_right = 35.0
+offset_bottom = 38.0
+items = Array[String](["Option 1", "Option 2"])
+
+[node name="SelectButton2" parent="." instance=ExtResource("1_cymmv")]
+layout_mode = 1
+anchors_preset = 2
+anchor_top = 1.0
+anchor_bottom = 1.0
+offset_left = 83.0
+offset_top = -12.0
+offset_right = 121.0
+offset_bottom = -4.0
+grow_vertical = 0
+items = Array[String](["Option 1", "Option 2"])

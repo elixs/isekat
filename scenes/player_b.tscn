@@ -1,7 +1,35 @@
-[gd_scene load_steps=6 format=3 uid="uid://c1n3leuih025r"]
+[gd_scene load_steps=11 format=3 uid="uid://c1n3leuih025r"]
 
 [ext_resource type="PackedScene" uid="uid://b3mhsy021dqog" path="res://scenes/player.tscn" id="1_8buvs"]
 [ext_resource type="Script" path="res://scenes/player_b.gd" id="2_x8tx0"]
+[ext_resource type="Texture2D" uid="uid://cl3r47rv0j1p8" path="res://assets/sprites/Meow Knight/Meow_Knight-Attack_3.png" id="3_yti60"]
+
+[sub_resource type="Gradient" id="Gradient_gd24q"]
+offsets = PackedFloat32Array(0.531073, 1)
+colors = PackedColorArray(1, 1, 1, 1, 1, 1, 1, 0)
+
+[sub_resource type="GradientTexture1D" id="GradientTexture1D_a131t"]
+gradient = SubResource("Gradient_gd24q")
+
+[sub_resource type="ParticleProcessMaterial" id="ParticleProcessMaterial_5s2sm"]
+particle_flag_disable_z = true
+spread = 0.0
+gravity = Vector3(0, -100, 0)
+initial_velocity_min = 150.0
+initial_velocity_max = 150.0
+orbit_velocity_min = 0.0
+orbit_velocity_max = 0.0
+damping_min = 95.0
+damping_max = 95.0
+angle_min = 90.0
+angle_max = 90.0
+scale_min = 0.5
+scale_max = 0.5
+color_ramp = SubResource("GradientTexture1D_a131t")
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_isamm"]
+atlas = ExtResource("3_yti60")
+region = Rect2(25, 35, 3, 3)
 
 [sub_resource type="CapsuleShape2D" id="CapsuleShape2D_b1mol"]
 radius = 6.0
@@ -15,26 +43,79 @@ size = Vector2(12, 8)
 
 [node name="Player" instance=ExtResource("1_8buvs")]
 script = ExtResource("2_x8tx0")
+fuel = 100
 max_speed = 25
 jump_speed = 100
 max_jumps = 1
 
+[node name="JetpackLeft" type="Sprite2D" parent="Pivot" index="1"]
+position = Vector2(13, 3)
+rotation = 1.5708
+scale = Vector2(0.5, 0.5)
+texture = ExtResource("3_yti60")
+hframes = 4
+
+[node name="ParticlesLeft" type="GPUParticles2D" parent="Pivot/JetpackLeft" index="0"]
+position = Vector2(8, 12.5)
+emitting = false
+amount = 100
+process_material = SubResource("ParticleProcessMaterial_5s2sm")
+texture = SubResource("AtlasTexture_isamm")
+
 [node name="Sprite2D" parent="Pivot/SpritePivot" index="0"]
 scale = Vector2(2, 2)
 
+[node name="JetpackRight" type="Sprite2D" parent="Pivot" index="3"]
+position = Vector2(-17, 3)
+rotation = 1.5708
+scale = Vector2(0.5, 0.5)
+texture = ExtResource("3_yti60")
+flip_v = true
+hframes = 4
+
+[node name="ParticlesRight" type="GPUParticles2D" parent="Pivot/JetpackRight" index="0"]
+position = Vector2(8, -12.5)
+emitting = false
+amount = 100
+process_material = SubResource("ParticleProcessMaterial_5s2sm")
+texture = SubResource("AtlasTexture_isamm")
+lifetime = 3.0
+
+[node name="ProgressBar" type="ProgressBar" parent="Pivot" index="4"]
+custom_minimum_size = Vector2(30, 0)
+offset_left = -17.0
+offset_top = -19.0
+offset_right = 13.0
+offset_bottom = -13.0
+rotation = 1.5708
+value = 100.0
+fill_mode = 1
+show_percentage = false
+
 [node name="CollisionShape2D" parent="." index="1"]
 shape = SubResource("CapsuleShape2D_b1mol")
+
+[node name="Camera2D" parent="." index="4"]
+position_smoothing_speed = 10.0
 
 [node name="PauseMenu" parent="CanvasLayer" index="0"]
 visible = false
 
 [node name="ShakeArea" type="Area2D" parent="." index="8"]
+visible = false
 collision_layer = 2
 collision_mask = 2
+metadata/_edit_lock_ = true
+metadata/_edit_group_ = true
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="ShakeArea" index="0"]
 position = Vector2(0, 12)
 shape = SubResource("RectangleShape2D_5d28o")
+
+[node name="Head" parent="." index="9"]
+visible = false
+metadata/_edit_lock_ = true
+metadata/_edit_group_ = true
 
 [node name="CollisionShape2D2" parent="Head" index="0"]
 position = Vector2(0, -16)
